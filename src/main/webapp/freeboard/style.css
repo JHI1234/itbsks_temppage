@@ -1,0 +1,105 @@
+@CHARSET "UTF-8";
+@font-face {
+    font-family: 'Pretendard-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/Project-Noonnu/noonfonts_2107@1.1/Pretendard-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+html{
+	font-family: 'Pretendard-Regular';
+}
+
+body {
+	width:700px;
+	margin : 0 auto;
+	font-size: 0.8rem; 
+}
+a{
+	text-decoration : none;
+	color : blue;
+	text-align:center;
+}
+table {
+	border-spacing : 0px;
+	margin: 0 auto;  /* 표를 가운데로 */
+	font-size: 9pt;
+	/* border: 1pt solid white; */ 
+}
+
+tr {
+	height: 30pt;
+}
+
+.container{
+	width:80%;
+	margin:0 auto;
+}
+.thcolor {
+	color : #fff;
+	background-color: gray;
+	
+}
+
+.tdcolor {
+	background-color: rgba(80,80,80,0.1);
+	border-bottom : 1px solid #fff;
+	text-align:center;
+}
+.tdcolor1 {
+	color : #000;
+	padding-left: 20px;
+	background-color: rgba(80,80,80,0.1);
+	border-bottom : 1px solid #fff;
+}
+.title{
+	padding-left: 20px;
+	text-align:left;
+	
+}
+.content{
+	height : 300px;
+}
+.button{
+	margin:10px auto;
+	text-align:center;
+	border : none;
+	background-color: rgba(80,80,80);
+	color : #fff;
+	border-radius : 3px;
+	padding : 5px;
+	font-weight: 600;
+}
+.button:hover{
+	opacity:.5;
+}
+.pagebutton{
+	margin-top:20px;
+	text-align:center;
+}
+.pageNumBtn{
+	padding:5px;
+	color : #fff;
+	background-color: rgba(80,80,80);
+	border-radius:3px;
+}
+.pageNumBtn:hover{
+	opacity:.5;
+}
+.passcheck{
+	text-align : center;
+}
+select {
+	font-size: 9pt; 
+}
+
+form {
+	font-size: 9pt; 
+}
+
+p{
+	font-weight: 700;
+	font-size:1rem;
+	text-align:center;
+}
+

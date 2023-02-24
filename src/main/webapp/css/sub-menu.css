@@ -1,0 +1,29 @@
+.sub-menu table{
+	margin: 0 auto;
+	margin-top: 50px;
+    border-spacing: 0px;
+    background-color: rgb(65, 65, 65);
+    border-radius: 15px;
+}
+.sub-menu th{
+	border-right: 1px solid #ccc;
+}
+.sub-menu th:last-child{
+	border-right: none;
+}
+.sub-menu th a{
+    text-decoration: none;
+    margin:10px;
+    color: #fff;
+    text-align: center;
+    display: flex;
+    width:150px;
+    max-width: 100%;
+    justify-content: center;
+    border-collapse: collapse;
+    font-weight: 500;
+    font-size: 1.2rem;
+}
+.sub-menu th a:hover{
+	opacity:0.5;
+}

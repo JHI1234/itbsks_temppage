@@ -1,0 +1,125 @@
+section{padding-bottom:50px;}
+
+#member_box { width: 1100px; margin: 0 auto;}
+#member_list { margin: 20px 0 10px 0;}
+#member_list li { padding: 10px 0; border-bottom: solid 1px #dddddd; }
+#member_list span { display: inline-block; text-align: center;}
+#member_list button { padding: 5px 10px;}
+#member_list .col1 { width: 10%; }
+#member_list .col2 { width: 15%; }
+#member_list .col3 { width: 15%; }
+#member_list .col4 { width: 25%; }
+#member_list .col5 { width: 20%; }
+#member_list .col6 { width: 10%; }
+
+#board_box { width: 1100px; margin: 0 auto;}
+#board_list { margin: 20px 0 10px 0;}
+#board_list .col1 { width: 10%; }
+#board_list .col2 { width: 35%; }
+#board_list .col3 { width: 10%; }
+#board_list .col4 { width: 20%; }
+#board_list .col5 { width: 10%; }
+#board_list .col6 { width: 10%; }
+#board_list li { padding: 10px 0; border-bottom: solid 1px #dddddd; }
+#board_list span { display: inline-block; text-align: center; }
+#board_list button { padding: 5px 10px;}
+#board_list .replycount { font-size: 13px; color: rgb(128, 128, 128);}
+
+#gallery_box { width: 1100px; margin: 0 auto;}
+#gallery_list { margin: 20px 0 10px 0;}
+#gallery_list .col1 { width: 10%; }
+#gallery_list .col2 { width: 35%; }
+#gallery_list .col3 { width: 15%; }
+#gallery_list .col4 { width: 15%; }
+#gallery_list .col5 { width: 10%; }
+#gallery_list .col6 { width: 10%; }
+#gallery_list li { padding: 10px 0; border-bottom: solid 1px #dddddd; }
+#gallery_list span { display: inline-block; text-align: center; }
+#gallery_list button { padding: 5px 5px;}
+
+#galleryform_box { position: relative; width: 1100px; margin: 0 auto;}
+#gallery_form span { display: inline-block; }
+#gallery_form .col1 { width: 150px; font-weight:bold;}
+#gallery_form li {	padding: 7px; border-bottom: solid 1px #dddddd; }
+#gallery_form input { width: 800px; height: 25px; }
+#gallery_form textarea { width: 500px;	height: 300px; }
+#gallery_form #text_area {position: relative;	height: 320px; }
+#gallery_form #text_area .col1 { position: absolute; top: 10px; }
+#gallery_form #text_area .col2 { position: absolute; left: 163px; }
+#gallery_form select { width: 150px; height: 25px}
+#gallery_form button { padding: 5px 10px;}
+
+#notice_box { width: 1100px; margin: 0 auto;}
+#notice_list { margin: 20px 0 10px 0;}
+#notice_list .col1 { width: 10%; }
+#notice_list .col2 { width: 40%; }
+#notice_list .col3 { width: 10%; }
+#notice_list .col4 { width: 10%; }
+#notice_list .col5 { width: 10%; }
+#notice_list .col6 { width: 8%; }
+#notice_list .col7 { width: 8%; }
+#notice_list li { padding: 10px 0; border-bottom: solid 1px #dddddd; }
+#notice_list span { display: inline-block; text-align: center; }
+#notice_list button { padding: 5px 5px;}
+
+#noticeform_box {width: 1100px; margin: 0 auto;}
+#notice_form span { display: inline-block; }
+#notice_form .col1 { width: 150px; font-weight:bold;}
+#notice_form li {	padding: 7px; border-bottom: solid 1px #dddddd; }
+#notice_form input { width: 800px; height: 25px; }
+#notice_form textarea { width: 800px;	height: 300px; }
+#notice_form #text_area {position: relative;	height: 320px; }
+#notice_form #text_area .col1 { position: absolute; top: 10px; }
+#notice_form #text_area .col2 { position: absolute; left: 163px; }
+#notice_form select { width: 150px; height: 25px}
+#notice_form button { padding: 5px 10px;}
+
+.t-left {text-align:left !important;}
+
+.buttons { text-align: right; margin: 10px 15px 10px 0; }
+.buttons li { display: inline; }
+.buttons button { padding: 5px 10px; cursor: pointer; }
+
+button { 
+	padding: 5px 10px;
+	height:36px;
+	min-width:36px;
+	text-decoration:none;
+	border:1px solid #003876;
+	background-color:#003876;
+	color:#fff !important;
+	border-radius:5px;
+}
+input[type=submit],input[type=button], input[type=reset]{
+	padding: 5px 10px;
+	height:36px;
+	min-width:36px;
+	text-decoration:none;
+	border:1px solid #003876;
+	background-color:#003876;
+	color:#fff !important;
+	border-radius:5px;
+}
+.page {
+	clear:left;
+	width:400px; margin: 0 auto;
+	text-align:center;
+	padding-top: 5px;	
+}
+.pageNumBtn{
+	display:inline-block;
+	color:#003876;
+	font-size:1.083em;
+	height:36px;
+	line-height:34px;
+	padding:0 5px;
+	min-width:36px;
+	text-decoration:none;
+	border:1px solid #003876;
+	background:#fff;
+	border-radius:5px;
+}
+.current{
+	background-color:#003876;
+	color:#fff;
+}

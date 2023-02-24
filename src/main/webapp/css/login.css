@@ -1,0 +1,32 @@
+
+#login_box { 
+	width:max-content;
+	margin: 40px auto;
+	margin-bottom: 70px;
+	padding : 50px;
+	border: 1px solid #ccc;
+	box-shadow:0px 0px 20px 0px #ccc; 
+}
+
+#login_form { 
+	margin-top: 20px; 
+}
+
+#login_box input {	
+	width: 300px; 
+	height: 40px; 
+	margin-bottom: 10px; 
+}
+
+#login_box span {
+	display:block;
+	width: 300px;
+	padding: 10px 0;
+	margin-top: 5px;
+	background: #003876;
+	color: white; 
+	font-size: 18px;
+	font-weight: 600;
+	text-align:center;
+	border-radius: 5px;
+}
