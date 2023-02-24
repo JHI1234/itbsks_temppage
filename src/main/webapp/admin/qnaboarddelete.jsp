@@ -15,6 +15,8 @@
 	} else {
 		QnaboardDAO qDAO = QnaboardDAO.getInstance();
 		qDAO.deleteqnaboard(num);
-		response.sendRedirect("qnalist.jsp?pageNum=" + pageNum);
+		
+		out.println("<script>alert('삭제되었습니다.');</script>");
+		out.println("<script>document.location.href='qnalist.jsp?pageNum=" + pageNum + "';</script>");
 	}
 %>

@@ -1,11 +1,21 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="member.MemberDAO" %>
+<%@ page import="member.MemberVO" %>
+
+<%
+	String id = (String) session.getAttribute("id");
+	MemberDAO mdao = MemberDAO.getInstance();
+	MemberVO article = mdao.getMemberUpdate(id);
+%>    
+  
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보 수정</title>
+<title>회원정보 수정 | 부산경상대학교 컴퓨터정보·메타버스게임과 학과</title>
 <link href="../css/member.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
 function check_input()
 {
@@ -61,12 +71,8 @@ function reset_form() {
       <form name="update_form" method="post" action="updatePro.jsp">
   		  <table>
 	  		  <tr class="form id">
-		  		  <%
-			  		String id1 = "";
-		  		  	id1 = (String) session.getAttribute("id");
-		  		  %>
 			     <td class="col1">아이디</td>
-			     <td class="col2"><%= id1 %></td>  
+			     <td class="col2"><%= id %></td>  
 			     <td class="col3"></td>                 
 	    	  </tr>
 	     	  <tr class="form">
@@ -81,12 +87,12 @@ function reset_form() {
 	    	  </tr>
 	    	  <tr class="form">
 	          	<td class="col1">이름</td>
-	      		<td class="col2"><input type="text" name="name"></td>                 
+	      		<td class="col2"><input type="text" name="name" value="<%=article.getName()%>"></td>                 
 	    	  	<td></td>
 	    	  </tr>
 	    	  <tr class="form">
 	          	<td class="col1">e-mail</td>
-	      		<td class="col2"><input type="text" name="email"></td>                 
+	      		<td class="col2"><input type="text" name="email" value="<%=article.getEmail()%>"></td>                 
 	    	  	<td></td>
 	    	  </tr>
  	    	  <tr class="form">

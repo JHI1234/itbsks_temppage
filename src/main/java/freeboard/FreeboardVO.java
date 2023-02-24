@@ -10,6 +10,7 @@ public class FreeboardVO {
 	private Timestamp reg_date;
 	private int readcount;
 	private String content;
+	private String thumbnail;
 	
 	public int getNum() {
 		return num;
@@ -53,5 +54,10 @@ public class FreeboardVO {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+	public String getThumbnail() {
+		return thumbnail;
+	}
+	public void setThumbnail(String thumbnail) {
+		this.thumbnail = thumbnail;
+	}
 }

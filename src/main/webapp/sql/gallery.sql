@@ -7,6 +7,10 @@ create table gallery(
      gimage varchar(100) default 'nothing.jpg'
 );
 
+SET @count=0;
+UPDATE gallery SET gnum=@count:=@count+1;
+ALTER TABLE gallery AUTO_INCREMENT=0;
+
 insert into gallery(gtitle, greg_date, gimage)
 values ('VR체험학습', '2020-06-12 14:04:00', 'img9.jpg');
 
@@ -38,3 +42,4 @@ insert into gallery(gtitle, greg_date, gimage)
 values ('2023학번 신입생대상 전공체험 학습', '2023-01-02 15:46:00', 'img6.jpg');
 
 select * from gallery;	
+

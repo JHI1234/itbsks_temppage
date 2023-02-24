@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>위치 및 연락처 | 부산경상대학교 컴퓨터정보·메타버스게임과</title>
+<title>위치 및 연락처 | 학과 안내</title>
 <link rel="icon" type="image/png" href="../images/logo.png" />
 <link rel="stylesheet" href="../css/intro.css">
 </head>

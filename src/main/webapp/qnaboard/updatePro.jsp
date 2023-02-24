@@ -26,7 +26,7 @@
 	int check = qdao.updateqnaboard(article);
 	if (check == 1){
 		out.println("<script>alert('수정되었습니다.');</script>");
-		out.println("<script>document.location.href='qna.jsp?pageNum=" + pageNum + "';</script>");
+		out.println("<script>document.location.href='list.jsp?pageNum=" + pageNum + "';</script>");
 
 		//response.sendRedirect("qna.jsp?pageNum=" + pageNum);	// 게시글 list 페이지 이동
 	}

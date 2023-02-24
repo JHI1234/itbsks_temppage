@@ -27,7 +27,7 @@ String id = (String) session.getAttribute("id");
 QnaboardDAO fbdao = QnaboardDAO.getInstance();
 	fbdao.insertqnaboard(article);
 	
-	response.sendRedirect("qna.jsp");
+	response.sendRedirect("list.jsp");
 	
 	}
 %>	

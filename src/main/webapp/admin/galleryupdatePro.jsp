@@ -7,6 +7,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="java.sql.Date" %>
 <%@ page import="java.sql.Timestamp" %>
+<%@ page import="java.io.File" %>
 
 <% request.setCharacterEncoding("utf-8");%>
 
@@ -16,8 +17,8 @@
 		response.sendRedirect("main.jsp");	
 	} else {
 		//파일이 업로드되는 폴더를 지정한다.
-		//String saveFolder = "C://WS-JSP/BookSite/src/main/webapp/img/bookimg";
-		String saveFolder = "C:/WS-JSPMySQL/departJSP/src/main/webapp/images/galleryimg";
+		//String saveFolder = "C:/WS-JSPMySQL/departJSP/src/main/webapp/images/galleryimg/";
+		String saveFolder = "C:/WS-JSP/departJSP/src/main/webapp/images/galleryimg/";
 		//String saveFolder = "../bookimg"; //상대경로 X
 		String encType = "utf-8"; //엔코딩타입
 		int maxSize = 5*1024*1024;  //최대 업로될 파일크기 5Mb
@@ -32,7 +33,7 @@
 		 	System.out.println(e);
 		}
 %>
-
+s
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,6 +46,16 @@
 		<!--<jsp:setProperty name="article" property="*" /> multipart/form-data 방식이기 때문에 동작하지 않음-->
 	</jsp:useBean>
 <%
+	String beforeImg = multi.getParameter("exist_gimage");
+	String deleteImgName = saveFolder + beforeImg;
+	
+	File deleteImg = new File (deleteImgName);
+	
+	if (deleteImg.exists() && deleteImg.isFile()){
+		    deleteImg.delete();// 사진 삭제
+		    System.out.println("삭제된 이전 사진 : "+ beforeImg);
+	}
+
 	article.setGtitle(multi.getParameter("gtitle"));
 	article.setGreg_date(new Timestamp(Date.valueOf(multi.getParameter("greg_date")).getTime()));
 	article.setGimage(filename);

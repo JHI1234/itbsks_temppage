@@ -91,23 +91,23 @@
                                 </a>
                             </div>
                             <div class="col-md-4">
-                            	<a href="https://n.news.naver.com/mnews/article/009/0004889701?sid=101">
-	                                <div class="features_item sm-m-top-30">
-	                                    <div class="f_item_icon"><i class="fa-solid fa-users-rectangle"></i></div>
-	                                    <div class="f_item_text">
-	                                        <h3>시중은행 IT 개발자 파격대우</h3>
-	                                        <p>금융권의 IT 개발자 수요 폭증으로 인한<br>개발자 유치 경쟁 증가</p>
-	                                    </div>
-	                                </div>
-                                </a>
-                            </div>
-                            <div class="col-md-4">
                             	<a href="https://rtquiz.cafe24.com/appbutton/">
 	                                <div class="features_item sm-m-top-30">
 	                                    <div class="f_item_icon"><i class="fa-solid fa-laptop-code"></i></div>
 	                                    <div class="f_item_text">
 	                                        <h3>학기 중 현장실습을 통한<br>실제 프로젝트 참여</h3>
 	                                        <p>학교 기업 앱버튼 근무를 통한 개발 역량 강화</p>
+	                                    </div>
+	                                </div>
+                                </a>
+                            </div>
+                            <div class="col-md-4">
+                            	<a href="https://n.news.naver.com/mnews/article/009/0004889701?sid=101">
+	                                <div class="features_item sm-m-top-30">
+	                                    <div class="f_item_icon"><i class="fa-solid fa-users-rectangle"></i></div>
+	                                    <div class="f_item_text">
+	                                        <h3>시중은행 IT 개발자 파격대우</h3>
+	                                        <p>금융권의 IT 개발자 수요 폭증으로 인한<br>개발자 유치 경쟁 증가</p>
 	                                    </div>
 	                                </div>
                                 </a>

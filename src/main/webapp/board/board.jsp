@@ -11,9 +11,9 @@
     <div class="sub-menu">
         <table>
             <tr>
-                <th><a href="../notice/notice.jsp">공지사항</a></th>
-                <th><a href="../freeboard/freeboard.jsp">학과 소식</a></th>
-                <th><a href="../qnaboard/qna.jsp">입시 Q&A</a></th>
+                <th><a href="../notice/list.jsp">공지사항</a></th>
+                <th><a href="../freeboard/list.jsp">학과 소식</a></th>
+                <th><a href="../qnaboard/list.jsp">입시 Q&A</a></th>
                 <th><a href="../galleryboard/gallery.jsp">학과 앨범</a></th>
             </tr>
         </table>

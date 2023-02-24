@@ -1,5 +1,5 @@
 .board-title{
-    background: url(../images/sub-bg2.jpg) no-repeat scroll  center center;
+    background: url(../images/sub-bg2.jpg) no-repeat scroll 50% 75%;
     background-size: cover;
     position: relative;
     padding-top: 150px;
@@ -23,7 +23,7 @@
 #board_form{ width:max-content; margin: 0 auto !important;}
 #board_form span {width:100%; display: inline-block; }
 #board_form .col1 { width: 150px; font-weight:bold;}
-#board_form .col2 { width: max-content;}
+#board_form .col2 { width: 800px;}
 #board_form li {width:max-content; padding: 12px; border-bottom: solid 1px #dddddd; }
 #board_form li:last-child{border-bottom: none;}
 #board_form input { width: 800px; height: 25px; }
@@ -44,7 +44,7 @@ button {
 	color:#fff !important;
 	border-radius:5px;
 }
-input[type=submit],input[type=button], input[type=reset]{
+input[type=submit],input[type=button], input[type=reset], .searchbtn{
 	padding: 5px 10px;
 	height:36px;
 	min-width:36px;
@@ -76,13 +76,14 @@ input[type=submit],input[type=button], input[type=reset]{
 	font-size: 1.1rem;
 	color: #000;
 }
+.b-notice{
+	background-color: rgba(255,246,165,0.3); font-size: 1.1rem; color: #000;
+}
 .b-content:hover{
 	background-color: rgba(100,100,100,0.1);
 }
 .board_title {text-align: left !important;}
-.board_title a:hover{
-	text-decoration: underline;
-}
+
 .page {
 	text-align:center;
 	padding-top: 5px;
@@ -104,6 +105,8 @@ input[type=submit],input[type=button], input[type=reset]{
 	background-color:#003876;
 	color:#fff;
 }
+
+.search_box {text-align:right; margin:0 15px 15px 0;}
 /* 게시판 내용보기(content.jsp) */
 #board_box .title { margin-top: 30px; border-bottom: solid 2px #516e7f; }
 
@@ -112,15 +115,16 @@ input[type=submit],input[type=button], input[type=reset]{
 #view_content li:nth-child(1) {	padding: 15px; border-bottom: solid 1px #aaaaaa; }
 #view_content .col2 { float: right; }
 #view_content li:nth-child(2) {	padding: 15px 15px 80px 15px; border-bottom: solid 1px #cccccc; }
-#view_content #content-space {height:300px;}
+#view_content #content-space {padding-bottom:150px;}
+#view_content #content-img {width:700px; height:auto; padding-bottom:50px;}
 
 #reply_content { padding: 5px; border: solid 1px #dddddd; }
-#reply_content li { padding: 10px; border-bottom: solid 1px #dddddd; }
+#reply_content li { padding: 10px; border-bottom: solid 1px #dddddd; display:flex; align-items:center; }
 #reply_content span { display: inline-block;}
 #reply_content .col1 { width: 15%; text-align: center;}
 #reply_content .col2 { width: 60%; text-align: left;}
 #reply_content .col3 { width: 10%; text-align: center;}
-#reply_content .col4 { width: 10%; position:relative; top:-10px; left:15px; float:right;}
+#reply_content .col4 { width: 10%; position:relative; left:15px; float:right;}
 
 
 #reply_form li { padding: 10px;  border: solid 1px #dddddd; margin-top:20px;}
@@ -128,7 +132,7 @@ input[type=submit],input[type=button], input[type=reset]{
 #reply_form textarea { width: 100%; }
 #reply_form .col1 { position:relative; top:15px; width: 15%; text-align: center; float:left;}
 #reply_form .col2 { width: 60%; text-align: left; }
-#reply_form .col3 { position:relative; top:8px; left:35px; width: 20%; text-align: center; float:right;}
+#reply_form .col3 { position:relative; top:8px; right:30px; width: 20%; text-align: center; float:right;}
 
 /* 게시글 수정하기(updateForm.jsp) */
 #board_form input[type=password] {width:100px;}

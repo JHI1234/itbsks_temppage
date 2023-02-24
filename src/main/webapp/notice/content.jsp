@@ -19,7 +19,7 @@
 
 <html>
 <head>
-<title>공지사항</title>
+<title>공지사항 | 학과 게시판</title>
 <link href="../css/board.css" rel="stylesheet" type="text/css">
 <script>
   function check_input() {
@@ -55,26 +55,18 @@
 			<span class="col1"><b>제 목 :</b> <%=article.getSubject()%> </span>
 			<span class="col2"> <%=article.getWriter()%> | <%=sdf2.format(article.getReg_date())%> </span>
 		</li>
-		<li>
-			<%=article.getContent().replace("\r\n", "<br><br>")%>
+		<li id="content-space">
+		<% if(article.getThumbnail() != null){ %>
+			<img id="content-img" src="../images/noticeimg/<%=article.getThumbnail()%>" /><br>
+			<%=article.getContent().replace("\r\n", "<br>")%>
+		<%}else{ %>
+			<%=article.getContent().replace("\r\n", "<br>")%>
+		<%} %>
 		</li>		
     </ul>
     
-    <ul class="buttons">
-<%
-	String id = (String) session.getAttribute("id");
-	if (!(id==null) && id.equals(article.getWriter())) {
-%>			
-		<li><button onclick="location.href='updateForm.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">수정</button></li>
-		<li><button onclick="del(<%=article.getNum()%>,<%=pageNum%>)">삭제</button></li>
-		<li><button onclick="location.href='notice.jsp?pageNum=<%=pageNum%>'">목록</button></li>
-<%
-	} else {
-%>
-		<li><button onclick="location.href='notice.jsp?pageNum=<%=pageNum%>'">목록</button></li>
-<%
-	}
-%>			
+    <ul class="buttons center">
+		<li><button onclick="location.href='list.jsp?pageNum=<%=pageNum%>'">목록</button></li>		
 	</ul>
 	</div>
   </div>

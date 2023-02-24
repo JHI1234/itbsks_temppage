@@ -4,7 +4,6 @@ import java.sql.*;	// java sql package의 모든 것을 불러옴
 import javax.sql.*;
 import javax.naming.*;
 
-
 import java.util.List;	// List 사용을 위해 import로 추가
 import java.util.ArrayList;	// ArrayList 사용을 위해 import로 추가
 
@@ -132,6 +131,38 @@ public class QnaboardDAO {
 		return result;
 	}
 	
+	//검색 기능 추가
+	public int getArticleCount(String sword) {
+		Connection conn = null;
+		PreparedStatement pstmt = null; // query 실행
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {			
+			conn = getConnection();			
+			
+			//select count(*) from book where btitle like '%자료%';
+			String sql = "select count(*) from qnaboard where subject like ?";
+			pstmt = conn.prepareStatement(sql); //3. sql query를 실행하기 위한 객체 생성하기
+			pstmt.setString(1, sword);
+			rs = pstmt.executeQuery(); //4. sql query 실행
+			
+			if(rs.next()) {
+				result = rs.getInt(1);				
+			} 			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("qnaboard 테이블의 특정 subject의 레코드 전체 수 검색을 실패했습니다.");
+		} finally {
+			//5. 자원 해제
+			if(rs != null) try {rs.close();} catch(SQLException se) { }
+			if(pstmt != null) try {pstmt.close();} catch(SQLException se) { }
+			if(conn != null) try {conn.close();} catch(SQLException se) { }
+		}
+		
+		return result;
+	}
+	
 	public int getMemberArticleCount(String id) {
 		Connection conn = null;			// 데이터베이스 연결할 객체
 		PreparedStatement pstmt = null;	// query 실행 객체
@@ -206,6 +237,51 @@ public class QnaboardDAO {
 		}
 		
 		return alist;
+	}
+	
+	public List<QnaboardVO> getArticles(int start, int end, String sword) {
+		Connection conn = null;
+		PreparedStatement pstmt = null; // query 실행
+		ResultSet rs = null;
+		List<QnaboardVO> articleList = null;
+		//System.out.println(start + " - " + end);
+		try {			
+			conn = getConnection();			
+			
+			String sql = "select * from qnaboard where subject like ? order by num desc limit ?, ?";
+			pstmt = conn.prepareStatement(sql); //3. sql query를 실행하기 위한 객체 생성하기
+			pstmt.setString(1, sword);
+			pstmt.setInt(2, start-1);
+			pstmt.setInt(3, end);
+			rs = pstmt.executeQuery(); //4. sql query 실행
+			
+			if(rs.next()) {
+				articleList = new ArrayList<QnaboardVO>();
+				do {
+					QnaboardVO article = new QnaboardVO();	// 같은 board 패키지 내에 있기 때문에 import를 하지 않아도 객체 생성이 가능
+					article.setNum(rs.getInt("num"));
+					article.setWriter(rs.getString("writer"));
+					article.setSubject(rs.getString("subject"));
+					article.setPasswd(rs.getString("passwd"));
+					article.setReg_date(rs.getTimestamp("reg_date"));
+					article.setReadcount(rs.getInt("readcount"));
+					article.setContent(rs.getString("content"));
+					
+					articleList.add(article);
+				} while(rs.next());				
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("book 테이블에 새로운 레코드 추가를 실패했습니다.");
+		} finally {
+			//5. 자원 해제
+			if(rs != null) try {rs.close();} catch(SQLException se) { }
+			if(pstmt != null) try {pstmt.close();} catch(SQLException se) { }
+			if(conn != null) try {conn.close();} catch(SQLException se) { }
+		}
+		
+		return articleList;
 	}
 	
 	public List<QnaboardVO> getMemberArticles(String id, int start, int end){
@@ -306,7 +382,7 @@ public class QnaboardDAO {
 			pstmt.executeUpdate(); // 4. sql query 실행 -  개수 반환
 			
 			sql = "select * from qnaboard where num=?;";	// 쿼리 구문
-			pstmt  = conn.prepareStatement(sql);
+			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			rs = pstmt.executeQuery();	// 4. sql query 실행 -  개수 반환
 			

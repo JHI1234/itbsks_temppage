@@ -30,8 +30,9 @@
 
 <html>
 <head>
-<title>입시 Q&A</title>
+<title>입시 Q&A | 학과 게시판</title>
 <link href="../css/board.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />
 <script>
   function check_input() {
       if (!document.reply_form.reply.value)
@@ -67,7 +68,7 @@
 			<span class="col2"> <%=article.getWriter()%> | <%=sdf.format(article.getReg_date())%> </span>
 		</li>
 		<li id="content-space">
-			<%=article.getContent().replace("\r\n", "<br><br>")%>
+			<%=article.getContent().replace("\r\n", "<br>")%>
 		</li>		
     </ul>
     
@@ -78,11 +79,11 @@
 %>		
 		<li><button onclick="location.href='updateForm.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">수정</button></li>
 		<li><button onclick="del(<%=article.getNum()%>,<%=pageNum%>)">삭제</button></li>
-		<li><button onclick="location.href='qna.jsp?pageNum=<%=pageNum%>'">목록</button></li>
+		<li><button onclick="location.href='list.jsp?pageNum=<%=pageNum%>'">목록</button></li>
 <%
 	} else {
 %>
-		<li><button onclick="location.href='qna.jsp?pageNum=<%=pageNum%>'">목록</button></li>
+		<li><button onclick="location.href='list.jsp?pageNum=<%=pageNum%>'">목록</button></li>
 <%
 	}
 %>			
@@ -96,11 +97,11 @@
   			ReplyVO reply = replyList.get(i);
 %>	
 		<li>
-			<span class="col1"><%=reply.getRwriter()%></span>
+			<span class="col1"><%=reply.getRwriter().replace("admin", "관리자")%></span>
 			<span class="col2"><%=reply.getReply().replace("\r\n", "<br>")%></span>
 			<span class="col3"><%=sdf2.format(reply.getReg_date())%></span>
 <%		  if (!(id==null) && id.equals(reply.getRwriter())) { %>
-			<span class="col4"><button onclick="location.href='replyDelete.jsp'">삭제</button></span>
+			<span class="col4"><button onclick="location.href='replyDelete.jsp?&pageNum=<%=pageNum%>&rnum=<%=reply.getRnum()%>'">삭제</button></span>
  	   <% } %>
 		</li>	
 <%    } %>

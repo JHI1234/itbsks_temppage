@@ -4,8 +4,9 @@
 <html>
 <head>
 <meta charset="EUC-KR">
-<title>마이페이지</title>
+<title>마이페이지 | 부산경상대학교 컴퓨터정보·메타버스게임과 학과ㄴ</title>
 <link href="../css/member.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 </head>
 <body>
 <header>

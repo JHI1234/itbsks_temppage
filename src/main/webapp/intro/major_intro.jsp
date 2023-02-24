@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>전공 소개 | 부산경상대학교 컴퓨터정보·메타버스게임과</title>
+<title>전공 소개 | 학과 안내</title>
 <link rel="icon" type="image/png" href="../images/logo.png" />
 <link rel="stylesheet" href="../css/intro.css">
 </head>
@@ -14,6 +14,7 @@
     <%@ include file="../board/intro.jsp"%>
 	<div class="intro_con">
 		<h2 class="sCont_title">전공 소개</h2>
+		<div class="major-bg"></div>
 		<div class="major-con">
 	        <div class="majorbox mb-left">
 	            <h4><i class="fa-solid fa-pen-to-square"></i>소프트웨어전공</h4>

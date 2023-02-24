@@ -5,7 +5,7 @@
     font-style: normal;
 }
 .intro-title{
-    background: url(../images/sub-bg1.jpg) no-repeat scroll  center center;
+    background: url(../images/sub-bg6.jpg) no-repeat scroll center top;
     background-size: cover;
     position: relative;
     padding-top: 150px;
@@ -94,6 +94,7 @@ position: absolute; right: 0px; bottom: 0px; z-index: -1;}
 
 }
 /* major */
+.major-bg{margin: 0 auto; margin-bottom:50px; width:80%; height:250px; background:url("../images/major_bg.jpg") rgba(255, 0, 150, 0.2); background-size:cover; background-position: center top; background-blend-mode: multiply;}
 .major-con{margin: 0 auto; width: 80%; display: flex;}
 .majorbox{width: 100%; padding: 15px; line-height: 2rem;}
 .majorbox h4{font-weight:bold;}

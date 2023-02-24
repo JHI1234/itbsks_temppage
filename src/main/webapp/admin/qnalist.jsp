@@ -37,12 +37,25 @@ if(managerId==null || managerId.equals("")) {
 	QnaboardDAO qDAO = QnaboardDAO.getInstance();
 	count = qDAO.getArticleCount();
 	
-	if (count > 0) {
-		articleList = qDAO.getArticles(startRow, pageSize);
-	}
-	
 	number = count - (currentPage - 1) * pageSize; //14-(1-1)*10=14 / 14-(2-1)*10=4
 	
+	String sword = request.getParameter("sword");
+	   if (sword==null || sword.equals("")) {
+	      count = qDAO.getArticleCount();   
+	      if(count > 0) {		// 게시글 수가 0이 아닐 때 - 게시글이 존재할 때	
+	    	  articleList = qDAO.getArticles(startRow, pageSize);
+
+	      }
+	   } else {
+	      count = qDAO.getArticleCount("%"+sword+"%");   
+	      if(count > 0) {
+	    	  articleList = qDAO.getArticles(startRow, pageSize, "%"+sword+"%");
+	      }
+	      else{
+	    	  out.println("<script>alert('검색된 데이터가 없습니다!'); history.go(-1);</script>");
+	      }
+	   }
+			
 	int replycount = 0; //총 댓글수	
 	ReplyDAO replyDAO = ReplyDAO.getInstance();
 %>
@@ -51,8 +64,9 @@ if(managerId==null || managerId.equals("")) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판 관리 | 관리자 페이지</title>
+<title>입시 Q&A 관리 | 관리자 페이지</title>
 <link href="../css/admin.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
   function check(num) {
 	  var ret = confirm("삭제하시겠습니까??");
@@ -62,6 +76,14 @@ if(managerId==null || managerId.equals("")) {
     	  return;
       }      
    }
+  function search_input() {
+	    if (!document.search_form.sword.value) {
+	        alert("검색어를 입력하세요");    
+	        document.search_form.sword.focus();
+	        return;
+	    }    
+	    document.search_form.submit();
+	}
 </script>
 </head>
 <body>
@@ -71,13 +93,19 @@ if(managerId==null || managerId.equals("")) {
 </header>
 	<jsp:include page="../board/adminqna.jsp" flush="false"/>
 <section>
-  <div id="board_box">
+  <div id="qna_box">
     <h2>입시 Q&A 관리 > 게시글 관리</h2><hr>
-  <ul id="board_list">
+  <div class="search_box">
+	  <form name="search_form" method="get" action="qnalist.jsp">
+	    <input type="text" name="sword" placeholder="게시글 검색" />&nbsp;
+	    <a href="#" class="searchbtn"><span onclick="search_input()">검색</span></a>
+	  </form>
+  </div>
+  <ul id="qna_list">
 	<li>
 		<span class="col1"><b>번호</b></span>
 		<span class="col2"><b>제 목</b></span>
-		<span class="col3"><b>글쓴이</b></span>
+		<span class="col3"><b>작성자</b></span>
 		<span class="col4"><b>등록일</b></span>
 		<span class="col5"><b>조회수</b></span>
 		<span class="col6"><b>삭제</b></span>

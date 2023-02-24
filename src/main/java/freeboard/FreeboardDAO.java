@@ -2,8 +2,10 @@ package freeboard;
 // java 파일 수정 시 반드시 서버 재시작!
 import java.sql.*;	// java sql package의 모든 것을 불러옴
 import javax.sql.*;
-import javax.naming.*;
 
+import qnaboard.QnaboardVO;
+
+import javax.naming.*;
 
 import java.util.List;	// List 사용을 위해 import로 추가
 import java.util.ArrayList;	// ArrayList 사용을 위해 import로 추가
@@ -83,13 +85,15 @@ public class FreeboardDAO {
 			
 			//insert into board(writer, email, subject, passwd, reg_date, content)
 			// values('jhi', 'aaa@gmail.com','제목', 'bye', now(), '내용1');
-			String sql = "insert into freeboard(writer, subject, passwd, reg_date, content)"
-					+ " values(?, ?, ?, now(), ?)";	// 쿼리 구문 - 위치 홀더 이용
+			String sql = "insert into freeboard(writer, subject, passwd, reg_date, content, thumbnail)"
+					+ " values(?, ?, ?, ?, ?, ?)";	// 쿼리 구문 - 위치 홀더 이용
 			pstmt  = conn.prepareStatement(sql);	// sql을 실행하기 위한 객체 생성하기
 			pstmt.setString(1, article.getWriter());	// - 위치 홀더 지정
 			pstmt.setString(2, article.getSubject());
 			pstmt.setString(3, article.getPasswd());
-			pstmt.setString(4, article.getContent());
+			pstmt.setTimestamp(4, article.getReg_date());
+			pstmt.setString(5, article.getContent());
+			pstmt.setString(6, article.getThumbnail());			
 			pstmt.executeUpdate();	// sql query 실행
 					
 		}catch(Exception e){
@@ -131,6 +135,39 @@ public class FreeboardDAO {
 		
 		return result;
 	}
+	
+	//검색 기능 추가
+	public int getArticleCount(String sword) {
+		Connection conn = null;
+		PreparedStatement pstmt = null; // query 실행
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {			
+			conn = getConnection();			
+			
+			//select count(*) from book where btitle like '%자료%';
+			String sql = "select count(*) from freeboard where subject like ?";
+			pstmt = conn.prepareStatement(sql); //3. sql query를 실행하기 위한 객체 생성하기
+			pstmt.setString(1, sword);
+			rs = pstmt.executeQuery(); //4. sql query 실행
+			
+			if(rs.next()) {
+				result = rs.getInt(1);				
+			} 			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("freeboard 테이블의 특정 subject의 레코드 전체 수 검색을 실패했습니다.");
+		} finally {
+			//5. 자원 해제
+			if(rs != null) try {rs.close();} catch(SQLException se) { }
+			if(pstmt != null) try {pstmt.close();} catch(SQLException se) { }
+			if(conn != null) try {conn.close();} catch(SQLException se) { }
+		}
+		
+		return result;
+	}
+
 	
 	public int getMemberArticleCount(String id) {
 		Connection conn = null;			// 데이터베이스 연결할 객체
@@ -191,6 +228,7 @@ public class FreeboardDAO {
 					article.setReg_date(rs.getTimestamp("reg_date"));
 					article.setReadcount(rs.getInt("readcount"));
 					article.setContent(rs.getString("content"));
+					article.setThumbnail(rs.getString("thumbnail"));
 					
 					alist.add(article);
 				}while(rs.next());
@@ -207,6 +245,53 @@ public class FreeboardDAO {
 		
 		return alist;
 	}
+	
+	public List<FreeboardVO> getArticles(int start, int end, String sword) {
+		Connection conn = null;
+		PreparedStatement pstmt = null; // query 실행
+		ResultSet rs = null;
+		List<FreeboardVO> articleList = null;
+		//System.out.println(start + " - " + end);
+		try {			
+			conn = getConnection();			
+			
+			String sql = "select * from freeboard where subject like ? order by num desc limit ?, ?";
+			pstmt = conn.prepareStatement(sql); //3. sql query를 실행하기 위한 객체 생성하기
+			pstmt.setString(1, sword);
+			pstmt.setInt(2, start-1);
+			pstmt.setInt(3, end);
+			rs = pstmt.executeQuery(); //4. sql query 실행
+			
+			if(rs.next()) {
+				articleList = new ArrayList<FreeboardVO>();
+				do {
+					FreeboardVO article = new FreeboardVO();	// 같은 board 패키지 내에 있기 때문에 import를 하지 않아도 객체 생성이 가능
+					article.setNum(rs.getInt("num"));
+					article.setWriter(rs.getString("writer"));
+					article.setSubject(rs.getString("subject"));
+					article.setPasswd(rs.getString("passwd"));
+					article.setReg_date(rs.getTimestamp("reg_date"));
+					article.setReadcount(rs.getInt("readcount"));
+					article.setContent(rs.getString("content"));
+					article.setThumbnail(rs.getString("thumbnail"));					
+					
+					articleList.add(article);
+				} while(rs.next());				
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("book 테이블에 새로운 레코드 추가를 실패했습니다.");
+		} finally {
+			//5. 자원 해제
+			if(rs != null) try {rs.close();} catch(SQLException se) { }
+			if(pstmt != null) try {pstmt.close();} catch(SQLException se) { }
+			if(conn != null) try {conn.close();} catch(SQLException se) { }
+		}
+		
+		return articleList;
+	}
+
 	
 	// 상세 글 보기
 	public List<FreeboardVO> getMemberArticles(String id, int start, int end){
@@ -237,6 +322,7 @@ public class FreeboardDAO {
 					article.setReg_date(rs.getTimestamp("reg_date"));
 					article.setReadcount(rs.getInt("readcount"));
 					article.setContent(rs.getString("content"));
+					article.setThumbnail(rs.getString("thumbnail"));
 					
 					alist.add(article);
 				}while(rs.next());
@@ -279,6 +365,7 @@ public class FreeboardDAO {
 				article.setReg_date(rs.getTimestamp("reg_date"));
 				article.setReadcount(rs.getInt("readcount"));
 				article.setContent(rs.getString("content"));
+				article.setThumbnail(rs.getString("thumbnail"));
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -321,6 +408,7 @@ public class FreeboardDAO {
 				article.setReg_date(rs.getTimestamp("reg_date"));
 				article.setReadcount(rs.getInt("readcount"));
 				article.setContent(rs.getString("content"));
+				article.setThumbnail(rs.getString("thumbnail"));
 			}
 		}catch(Exception e){
 			e.printStackTrace();
@@ -358,13 +446,15 @@ public class FreeboardDAO {
 				if(rpasswd.equals(article.getPasswd())){
 					result = 1;	// 1 : 인증 성공.
 					
-					sql = "update freeboard set writer=?, subject=?, passwd=?, content=? where num=?;";	// 쿼리 구문
+					sql = "update freeboard set writer=?, subject=?, passwd=?, reg_date=?, content=?, thumbnail=? where num=?;";	// 쿼리 구문
 					pstmt  = conn.prepareStatement(sql);
 					pstmt.setString(1, article.getWriter());
 					pstmt.setString(2, article.getSubject());
 					pstmt.setString(3, article.getPasswd());
-					pstmt.setString(4, article.getContent());
-					pstmt.setInt(5, article.getNum());
+					pstmt.setTimestamp(4, article.getReg_date());
+					pstmt.setString(5, article.getContent());
+					pstmt.setString(6, article.getThumbnail());
+					pstmt.setInt(7, article.getNum());
 					pstmt.executeUpdate(); // 4. sql query 실행 -  개수 반환
 					
 				} else{	//패스워드가 틀린경우
@@ -393,13 +483,8 @@ public class FreeboardDAO {
 		
 		try {
 			conn = getConnection();
-			
-			String sql = "delete from reply where ref=?;";	// 쿼리 구문
-			pstmt  = conn.prepareStatement(sql);
-			pstmt.setInt(1, num);
-			pstmt.executeUpdate(); // 4. sql query 실행 -  개수 반환
-			
-			sql = "delete from freeboard where num=?;";	// 쿼리 구문
+						
+			String sql = "delete from freeboard where num=?;";	// 쿼리 구문
 			pstmt  = conn.prepareStatement(sql);
 			pstmt.setInt(1, num);
 			pstmt.executeUpdate(); // 4. sql query 실행 -  개수 반환
@@ -416,4 +501,30 @@ public class FreeboardDAO {
 		return result;
 	}
 
+	public int deleteMemberFreeboard(String id) {	
+		Connection conn = null;			// 데이터베이스 연결할 객체
+		PreparedStatement pstmt = null;	// query 실행 객체
+		ResultSet rs = null;			// select문 실행 결과를 저장하는 객체
+		
+		int result = 0;
+		
+		try {
+			conn = getConnection();
+						
+			String sql = "delete from freeboard where writer=?;";	// 쿼리 구문
+			pstmt  = conn.prepareStatement(sql);
+			pstmt.setString(1, id);
+			pstmt.executeUpdate(); // 4. sql query 실행 -  개수 반환
+					
+		}catch(Exception e){
+			e.printStackTrace();
+			System.out.println("Freeboard 테이블의 글 삭제에 문제가 발생했습니다.");
+		}finally{	// 5. 자원 해제
+			if(rs != null) try{rs.close();}catch(SQLException se){}		// 예외 처리 해줘야함
+			if(pstmt != null) try{pstmt.close();}catch(SQLException se){}
+			if(conn != null) try{conn.close();}catch(SQLException se){}	//연결 해제
+		}
+		
+		return result;
+	}
 }

@@ -4,26 +4,24 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보 수정</title>
+<title>회원 탈퇴 | 부산경상대학교 컴퓨터정보·메타버스게임과 학과</title>
 <link href="../css/member.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
 function check_input()
 {
-   if (!document.update_form.passwd.value) {
+   if (!document.delete_form.passwd.value) {
        alert("비밀번호를 입력하세요!");    
-       document.update_form.passwd.focus();
+       document.delete_form.passwd.focus();
        return;
    }
 
-   document.update_form.submit();
+   document.delete_form.submit();
 }
 
 function reset_form() { 
-   document.update_form.passwd.value = "";
-   document.update_form.passwd_confirm.value = "";
-   document.update_form.name.value = "";
-   document.update_form.email.value = "";
-   document.update_form.passwd.focus();
+   document.delete_form.passwd.value = "";
+   document.delete_form.passwd.focus();
    return;
 }
 
@@ -38,7 +36,7 @@ function reset_form() {
 <section>
 <div id="main_content">
    <div id="join_box">
-      <form name="update_form" method="post" action="deletePro.jsp">
+      <form name="delete_form" method="post" action="deletePro.jsp">
   		  <table>
 	     	  <tr class="form">
 	      		<td class="col1">비밀번호</td>

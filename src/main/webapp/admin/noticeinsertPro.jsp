@@ -16,7 +16,7 @@
 		response.sendRedirect("main.jsp");	
 	} else {
 		//파일이 업로드되는 폴더를 지정한다.
-		//String saveFolder = "C://WS-JSP/BookSite/src/main/webapp/img/bookimg";
+		//String saveFolder = "C:/WS-JSPMySQL/departJSP/src/main/webapp/images/noticeimg/";
 		String saveFolder = "C:/WS-JSP/departJSP/src/main/webapp/images/noticeimg/";
 		//String saveFolder = "../bookimg"; //상대경로 X
 		String encType = "utf-8"; //엔코딩타입

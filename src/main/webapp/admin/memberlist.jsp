@@ -35,11 +35,24 @@ if(managerId==null || managerId.equals("")) {
 	MemberDAO mDAO = MemberDAO.getInstance();
 	count = mDAO.getMemberCount();
 	
-	if (count > 0) {
-		articleList = mDAO.getMembers(startRow, pageSize);
-	}
-	
 	number = count - (currentPage - 1) * pageSize; //14-(1-1)*10=14 / 14-(2-1)*10=4
+
+	String sword = request.getParameter("sword");
+	   if (sword==null || sword.equals("")) {
+	      count = mDAO.getMemberCount();   
+	      if(count > 0) {		// 게시글 수가 0이 아닐 때 - 게시글이 존재할 때	
+	    	  articleList = mDAO.getMembers(startRow, pageSize);
+
+	      }
+	   } else {
+	      count = mDAO.getMemberCount("%"+sword+"%");   
+	      if(count > 0) {
+	    	  articleList = mDAO.getMembers(startRow, pageSize, "%"+sword+"%");
+	      }
+	      else{
+	    	  out.println("<script>alert('검색된 데이터가 없습니다!'); history.go(-1);</script>");
+	      }
+	   }
 %>
 
 <!DOCTYPE html>
@@ -48,6 +61,7 @@ if(managerId==null || managerId.equals("")) {
 <meta charset="UTF-8">
 <title>회원관리 | 관리자 페이지</title>
 <link href="../css/admin.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
 function check(id) {
 	  var ret = confirm("삭제하시겠습니까??");
@@ -57,6 +71,14 @@ function check(id) {
   	      return;
       }      
  }
+function search_input() {
+    if (!document.search_form.sword.value) {
+        alert("검색어를 입력하세요");    
+        document.search_form.sword.focus();
+        return;
+    }    
+    document.search_form.submit();
+} 
 </script>
 </head>
 <body>
@@ -67,14 +89,21 @@ function check(id) {
 <section>
   <div id="member_box">
     <h2>회원 관리</h2><hr>
+  <div class="search_box">
+	  <form name="search_form" method="get" action="memberlist.jsp">
+	    <input type="text" name="sword" placeholder="아이디 검색" />&nbsp;
+	    <a href="#" class="searchbtn"><span onclick="search_input()">검색</span></a>
+	  </form>
+  </div>
   <ul id="member_list">
 	<li>
 		<span class="col1"><b>번호</b></span>
 		<span class="col2"><b>아이디</b></span>
-		<span class="col3"><b>이름</b></span>
-		<span class="col4"><b>이메일</b></span>
-		<span class="col5"><b>가입일</b></span>		
-		<span class="col6"><b>삭제</b></span>
+		<span class="col3"><b>패스워드</b></span>
+		<span class="col4"><b>이름</b></span>
+		<span class="col5"><b>이메일</b></span>
+		<span class="col6"><b>가입일</b></span>		
+		<span class="col7"><b>삭제</b></span>
 	</li>
 
 <%
@@ -91,10 +120,11 @@ for(int i=0; i<articleList.size(); i++) {
 	<li>
 		<span class="col1"><%=number--%></span>
 		<span class="col2"><%=article.getId()%></span>
-		<span class="col3"><%=article.getName()%></span>
-		<span class="col4"><%=article.getEmail()%></span>
-		<span class="col5"><%=sdf.format(article.getReg_date())%></span>
-		<span class="col6"><button type="button" onclick="check('<%=article.getId()%>')">삭제</button></span>
+		<span class="col3"><%=article.getPasswd()%></span>		
+		<span class="col4"><%=article.getName()%></span>
+		<span class="col5"><%=article.getEmail()%></span>
+		<span class="col6"><%=sdf.format(article.getReg_date())%></span>
+		<span class="col7"><button type="button" onclick="check('<%=article.getId()%>')">삭제</button></span>
 	</li>
 <%
 		}

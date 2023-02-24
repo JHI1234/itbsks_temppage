@@ -42,7 +42,7 @@
 			<tr>
 				<th colspan="2" class="thcolor">
 					<input type="submit" value="삭 제">
-					<input type="button" value="목록보기" onclick="window.location='qna.jsp?pageNum=<%= pageNum %>'">
+					<input type="button" value="목록보기" onclick="window.location='list.jsp?pageNum=<%= pageNum %>'">
 				</th>
 			</tr>
 		</table>

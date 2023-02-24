@@ -10,9 +10,10 @@
 <body>
     <div class="sub-menu" style="margin-bottom:50px;">
         <table>
-            <tr>
+            <tr>      
                 <th><a href="../admin/qnalist.jsp">게시글 관리</a></th>
                 <th><a href="../admin/replylist.jsp">댓글 관리</a></th>
+                <th><a href="../admin/faqlist.jsp">FAQ 관리</a></th>    
             </tr>
         </table>
     </div>

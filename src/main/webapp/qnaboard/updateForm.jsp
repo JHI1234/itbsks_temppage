@@ -68,7 +68,7 @@
 			<li>
 				<input type="submit" value="수정" >
 				<input type="reset" value="다시작성">
-				<input type="button" value="목록보기" onclick="window.location='qna.jsp?pageNum=<%= pageNum %>'">
+				<input type="button" value="목록보기" onclick="window.location='list.jsp?pageNum=<%= pageNum %>'">
 			</li>
 		</ul>
 	</form>

@@ -94,7 +94,7 @@
                 <div class="main_footer fix bg-mega text-center p-top-40 p-bottom-30 m-top-80">
                     <div class="col-md-12">
                         <p class="wow fadeInRight" data-wow-duration="1s">
-                            Copyright 2022. JHI1234 All Rights Reserved.
+                            Copyright 2023. JHI1234 All Rights Reserved.
                         </p>
                     </div>
                 </div>

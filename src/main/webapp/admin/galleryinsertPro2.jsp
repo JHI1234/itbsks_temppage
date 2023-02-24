@@ -27,8 +27,8 @@
 		response.sendRedirect("main.jsp");	
 	} else {
 		//파일이 업로드되는 폴더를 지정한다.
-		//String saveFolder = "C://WS-JSP/BookSite/src/main/webapp/img/bookimg";
-		String saveFolder = "C:/WS-JSPMySQL/departJSP/src/main/webapp/images/galleryimg/";
+		//String saveFolder = "C:/WS-JSPMySQL/departJSP/src/main/webapp/images/galleryimg/";
+		String saveFolder = "C:/WS-JSP/departJSP/src/main/webapp/images/galleryimg/";
 		//String saveFolder = "../bookimg"; //상대경로 X
 		String encType = "utf-8"; //엔코딩타입
 		int maxSize = 5*1024*1024;  //최대 업로될 파일크기 5Mb

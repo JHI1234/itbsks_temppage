@@ -31,23 +31,53 @@
 	//number = count - (currentPage - 1) * pageSize; //12-(1-1)*10=12, 12-(2-1)*10=2
 	//------------------
 	
-	if(count > 0) {
-		alist = gdao.getArticles(startRow, pageSize);
-	}
+	String sword = request.getParameter("sword");
+	   if (sword==null || sword.equals("")) {
+	      count = gdao.getArticleCount();   
+	      if(count > 0) {		// 게시글 수가 0이 아닐 때 - 게시글이 존재할 때	
+	         alist = gdao.getArticles(startRow, pageSize);
+
+	      }
+	   } else {
+	      count = gdao.getArticleCount("%"+sword+"%");   
+	      if(count > 0) {
+	         alist = gdao.getArticles(startRow, pageSize, "%"+sword+"%");
+	      }
+	      else{
+	    	  out.println("<script>alert('검색된 데이터가 없습니다!'); history.go(-1);</script>");
+	      }
+	   }
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>학과 앨범</title>
+<title>학과 앨범 | 학과 게시판</title>
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/gallery.css" rel="stylesheet" type="text/css">
+<script>
+	function search_input() {
+	    if (!document.search_form.sword.value) {
+	        alert("검색어를 입력하세요");    
+	        document.search_form.sword.focus();
+	        return;
+	    }    
+	    document.search_form.submit();
+	}
+</script>
 </head>
 <body>
 <section class="board-top">
 
     <div id="board_box">
       <h2 id="gallery">학과 앨범</h2>
+      <div class="search_box">
+		  <form name="search_form" method="get" action="list.jsp">
+		    <input type="text" name="sword" placeholder="제목 입력" />&nbsp;
+		    <a href="#" class="searchbtn"><span onclick="search_input()">검색</span></a>
+		  </form>
+  	  </div>
+      <hr>
       <div class="container">
 <%
 for(int i=0; i<alist.size(); i++) {

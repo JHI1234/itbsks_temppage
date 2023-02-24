@@ -51,6 +51,7 @@ if(managerId==null || managerId.equals("")) {
 <meta charset="UTF-8">
 <title>자유게시판 관리 | 관리자 페이지</title>
 <link href="../css/admin.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
   function check(num) {
 	  var ret = confirm("삭제하시겠습니까??");
@@ -69,9 +70,9 @@ if(managerId==null || managerId.equals("")) {
 </header>
 	<jsp:include page="../board/adminqna.jsp" flush="false"/>
 <section>
-  <div id="board_box">
+  <div id="reply_box">
     <h2>입시 Q&A 관리 > 댓글 관리</h2><hr>
-  <ul id="board_list">
+  <ul id="reply_list">
 	<li>
 		<span class="col1"><b>번호</b></span>
 		<span class="col2"><b>댓글 내용</b></span>

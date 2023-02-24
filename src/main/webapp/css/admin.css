@@ -1,25 +1,28 @@
-section{padding-bottom:50px;}
+section{padding-bottom:100px;}
+section h3{font-size:1.8rem !important;}
 
 #member_box { width: 1100px; margin: 0 auto;}
 #member_list { margin: 20px 0 10px 0;}
 #member_list li { padding: 10px 0; border-bottom: solid 1px #dddddd; }
 #member_list span { display: inline-block; text-align: center;}
 #member_list button { padding: 5px 10px;}
-#member_list .col1 { width: 10%; }
-#member_list .col2 { width: 15%; }
-#member_list .col3 { width: 15%; }
-#member_list .col4 { width: 25%; }
-#member_list .col5 { width: 20%; }
-#member_list .col6 { width: 10%; }
+#member_list .col1 { width: 13%; }
+#member_list .col2 { width: 13%; }
+#member_list .col3 { width: 13%; }
+#member_list .col4 { width: 13%; }
+#member_list .col5 { width: 15%; }
+#member_list .col6 { width: 15%; }
+#member_list .col7 { width: 13%; }
 
 #board_box { width: 1100px; margin: 0 auto;}
 #board_list { margin: 20px 0 10px 0;}
 #board_list .col1 { width: 10%; }
-#board_list .col2 { width: 35%; }
+#board_list .col2 { width: 30%; }
 #board_list .col3 { width: 10%; }
-#board_list .col4 { width: 20%; }
-#board_list .col5 { width: 10%; }
+#board_list .col4 { width: 13%; }
+#board_list .col5 { width: 13%; }
 #board_list .col6 { width: 10%; }
+#board_list .col7 { width: 10%; }
 #board_list li { padding: 10px 0; border-bottom: solid 1px #dddddd; }
 #board_list span { display: inline-block; text-align: center; }
 #board_list button { padding: 5px 10px;}
@@ -40,7 +43,7 @@ section{padding-bottom:50px;}
 #galleryform_box { position: relative; width: 1100px; margin: 0 auto;}
 #gallery_form span { display: inline-block; }
 #gallery_form .col1 { width: 150px; font-weight:bold;}
-#gallery_form li {	padding: 7px; border-bottom: solid 1px #dddddd; }
+#gallery_form li {	padding: 10px 0; border-bottom: solid 1px #dddddd; }
 #gallery_form input { width: 800px; height: 25px; }
 #gallery_form textarea { width: 500px;	height: 300px; }
 #gallery_form #text_area {position: relative;	height: 320px; }
@@ -63,16 +66,95 @@ section{padding-bottom:50px;}
 #notice_list button { padding: 5px 5px;}
 
 #noticeform_box {width: 1100px; margin: 0 auto;}
+#notice_form {margin: 0 auto !important; width: fit-content;}
 #notice_form span { display: inline-block; }
 #notice_form .col1 { width: 150px; font-weight:bold;}
-#notice_form li {	padding: 7px; border-bottom: solid 1px #dddddd; }
+#notice_form li {	padding: 10px 0; border-bottom: solid 1px #dddddd; }
 #notice_form input { width: 800px; height: 25px; }
 #notice_form textarea { width: 800px;	height: 300px; }
 #notice_form #text_area {position: relative;	height: 320px; }
 #notice_form #text_area .col1 { position: absolute; top: 10px; }
-#notice_form #text_area .col2 { position: absolute; left: 163px; }
+#notice_form #text_area .col2 { position: absolute; left: 153px; }
 #notice_form select { width: 150px; height: 25px}
 #notice_form button { padding: 5px 10px;}
+
+#qna_box { width: 1100px; margin: 0 auto;}
+#qna_list { margin: 20px 0 10px 0;}
+#qna_list .col1 { width: 10%; }
+#qna_list .col2 { width: 35%; }
+#qna_list .col3 { width: 10%; }
+#qna_list .col4 { width: 20%; }
+#qna_list .col5 { width: 10%; }
+#qna_list .col6 { width: 10%; }
+#qna_list li { padding: 10px 0; border-bottom: solid 1px #dddddd; }
+#qna_list span { display: inline-block; text-align: center; }
+#qna_list button { padding: 5px 10px;}
+#qna_list .replycount { font-size: 13px; color: rgb(128, 128, 128);}
+
+#qnaform_box {width: 1100px; margin: 0 auto;}
+#qna_form span { display: inline-block; }
+#qna_form .col1 { width: 150px; font-weight:bold;}
+#qna_form li {	padding: 10px 0; border-bottom: solid 1px #dddddd; }
+#qna_form input { width: 800px; height: 25px; }
+#qna_form textarea { width: 800px;	height: 300px; }
+#qna_form #text_area {position: relative;	height: 320px; }
+#qna_form #text_area .col1 { position: absolute; top: 10px; }
+#qna_form #text_area .col2 { position: absolute; left: 153px; }
+#qna_form select { width: 150px; height: 25px}
+#qna_form button { padding: 5px 10px;}
+
+#qna_box { width: 1100px; margin: 0 auto;}
+#qna_list { margin: 20px 0 10px 0;}
+#qna_list .col1 { width: 10%; }
+#qna_list .col2 { width: 35%; }
+#qna_list .col3 { width: 10%; }
+#qna_list .col4 { width: 20%; }
+#qna_list .col5 { width: 10%; }
+#qna_list .col6 { width: 10%; }
+#qna_list li { padding: 10px 0; border-bottom: solid 1px #dddddd; }
+#qna_list span { display: inline-block; text-align: center; }
+#qna_list button { padding: 5px 10px;}
+#qna_list .replycount { font-size: 13px; color: rgb(128, 128, 128);}
+
+#reply_box { width: 1100px; margin: 0 auto;}
+#reply_list { margin: 20px 0 10px 0;}
+#reply_list .col1 { width: 10%; }
+#reply_list .col2 { width: 35%; }
+#reply_list .col3 { width: 10%; }
+#reply_list .col4 { width: 20%; }
+#reply_list .col5 { width: 10%; }
+#reply_list .col6 { width: 10%; }
+#reply_list li { padding: 10px 0; border-bottom: solid 1px #dddddd; display:flex; justify-content:space-between; align-items:center; }
+#reply_list span { display: inline-block; text-align: center; }
+#reply_list button { padding: 5px 10px;}
+#reply_list .replycount { font-size: 13px; color: rgb(128, 128, 128);}
+
+#faq_box { width: 1100px; margin: 0 auto;}
+#faq_list { margin: 20px 0 10px 0;}
+#faq_list .col1 { width: 10%; }
+#faq_list .col2 { width: 35%; }
+#faq_list .col3 { width: 10%; }
+#faq_list .col4 { width: 20%; }
+#faq_list .col5 { width: 10%; }
+#faq_list .col6 { width: 10%; }
+#faq_list li { padding: 10px 0; border-bottom: solid 1px #dddddd; }
+#faq_list span { display: inline-block; text-align: center; }
+#faq_list button { padding: 5px 10px;}
+#faq_list .replycount { font-size: 13px; color: rgb(128, 128, 128);}
+
+#faqform_box {width: 1100px; margin: 0 auto;}
+#faq_form span { display: inline-block; }
+#faq_form .col1 { width: 150px; font-weight:bold;}
+#faq_form li {	padding: 10px 0; border-bottom: solid 1px #dddddd; }
+#faq_form input { width: 800px; height: 25px; }
+#faq_form textarea { width: 800px;	height: 300px; }
+#faq_form #text_area {position: relative;	height: 320px; }
+#faq_form #text_area .col1 { position: absolute; top: 10px; }
+#faq_form #text_area .col2 { position: absolute; left: 153px; }
+#faq_form select { width: 150px; height: 25px}
+#faq_form button { padding: 5px 10px;}
+
+.search_box {text-align:right; margin:0 15px 15px 0;}
 
 .t-left {text-align:left !important;}
 
@@ -90,7 +172,7 @@ button {
 	color:#fff !important;
 	border-radius:5px;
 }
-input[type=submit],input[type=button], input[type=reset]{
+input[type=submit],input[type=button], input[type=reset],.searchbtn{
 	padding: 5px 10px;
 	height:36px;
 	min-width:36px;
@@ -123,3 +205,4 @@ input[type=submit],input[type=button], input[type=reset]{
 	background-color:#003876;
 	color:#fff;
 }
+.m0auto{text-align:center; margin:20px auto !important;}

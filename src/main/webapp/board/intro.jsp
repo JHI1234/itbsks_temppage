@@ -12,8 +12,8 @@
         <table>
             <tr>
                 <th><a href="../intro/intro.jsp">학과장 인사말</a></th>
+                <th><a href="../intro/timeline.jsp">학과 연혁</a></th>                 
                 <th><a href="../intro/major_intro.jsp">전공 소개</a></th>
-                <th><a href="../intro/timeline.jsp">학과 연혁</a></th>                
                 <th><a href="../intro/curriculum.jsp">교육 과정</a></th>
                 <th><a href="../intro/map.jsp">위치 및 연락처</a></th>
             </tr>

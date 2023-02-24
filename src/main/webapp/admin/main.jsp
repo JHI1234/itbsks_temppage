@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <title>관리자 페이지 | 부산경상대학교 컴퓨터정보메타버스게임과</title>
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 </head>
 <body>
 <section>

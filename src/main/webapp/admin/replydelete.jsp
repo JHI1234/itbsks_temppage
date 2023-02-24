@@ -15,6 +15,8 @@
 	} else {
 		ReplyDAO rDAO = ReplyDAO.getInstance();
 		rDAO.deletereply(num);
-		response.sendRedirect("replylist.jsp?pageNum=" + pageNum);
+		
+		out.println("<script>alert('삭제되었습니다.');</script>");
+		out.println("<script>document.location.href='replylist.jsp?pageNum=" + pageNum + "';</script>");
 	}
 %>

@@ -116,14 +116,14 @@
 	padding: 50px;
 }
 .mypage .m_btn{
-	width:250px;
+	width:300px;
 	margin:20px;
 	padding:30px;
 	display:inline-block;
 	background-color:#003876;
 	color:#fff;
 	border-radius:10px;
-	font-size: 1.5rem;
+	font-size: 1.8rem;
 	text-align:center;
 }
 .mypage .m_btn:hover{

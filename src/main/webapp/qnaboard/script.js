@@ -19,7 +19,7 @@ function writeSave(){
         
    if(!document.insertform.passwd.value){
      alert("비밀번호를 입력하십시오.");
-     document.insertform.passwd.focus();
+     document.insertform.pasqna_formswd.focus();
      return false;
    }
  }

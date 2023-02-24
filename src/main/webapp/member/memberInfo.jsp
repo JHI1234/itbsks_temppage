@@ -15,8 +15,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원정보 확인</title>
+<title>회원정보 확인 | 부산경상대학교 컴퓨터정보·메타버스게임과 학과</title>
 <link href="../css/member.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 </head>
 <body>
 <header>

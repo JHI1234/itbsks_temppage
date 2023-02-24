@@ -35,11 +35,24 @@ if(managerId==null || managerId.equals("")) {
 	GalleryDAO gdao = GalleryDAO.getInstance();
 	count = gdao.getArticleCount();
 	
-	if (count > 0) {
-		aList = gdao.getArticles(startRow, pageSize);
-	}
-	
 	number = count - (currentPage - 1) * pageSize; //14-(1-1)*10=14 / 14-(2-1)*10=4
+			
+	String sword = request.getParameter("sword");
+	   if (sword==null || sword.equals("")) {
+	      count = gdao.getArticleCount();   
+	      if(count > 0) {		// 게시글 수가 0이 아닐 때 - 게시글이 존재할 때	
+	    	  aList = gdao.getArticles(startRow, pageSize);
+
+	      }
+	   } else {
+	      count = gdao.getArticleCount("%"+sword+"%");   
+	      if(count > 0) {
+	    	  aList = gdao.getArticles(startRow, pageSize, "%"+sword+"%");
+	      }
+	      else{
+	    	  out.println("<script>alert('검색된 데이터가 없습니다!'); history.go(-1);</script>");
+	      }
+	   }
 %>
 
 <!DOCTYPE html>
@@ -49,6 +62,7 @@ if(managerId==null || managerId.equals("")) {
 <title>학과앨범 관리 | 관리자 페이지</title>
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/admin.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
   function check(gnum) {
 	  var ret = confirm("삭제하시겠습니까??");
@@ -58,6 +72,14 @@ if(managerId==null || managerId.equals("")) {
     	  return;
       }      
    }
+  function search_input() {
+	    if (!document.search_form.sword.value) {
+	        alert("검색어를 입력하세요");    
+	        document.search_form.sword.focus();
+	        return;
+	    }    
+	    document.search_form.submit();
+	}
 </script>
 </head>
 <body>
@@ -68,6 +90,12 @@ if(managerId==null || managerId.equals("")) {
 <section>
   <div id="gallery_box">
     <h2>학과앨범 관리</h2><hr>
+  <div class="search_box">
+	  <form name="search_form" method="get" action="gallerylist.jsp">
+	    <input type="text" name="sword" placeholder="게시글 검색" />&nbsp;
+	    <a href="#" class="searchbtn"><span onclick="search_input()">검색</span></a>
+	  </form>
+  </div>
   <ul id="gallery_list">
 	<li>		
 		<span class="col1"><b>번호</b></span>
@@ -81,7 +109,6 @@ if(managerId==null || managerId.equals("")) {
 <%
 if(count == 0){	
 %>
-
 	<div class="text-center roomy-60"><h5>게시판에 등록된 글이 없습니다.</h5></div>
 
 <%
@@ -93,8 +120,8 @@ for(int i=0; i<aList.size(); i++) {
 		<span class="col1"><%=number--%></span>
 		<span class="col2 t-left"><%=article.getGtitle()%></span>
 		<span class="col3"><%=sdf.format(article.getGreg_date())%></span>
-		<span class="col4"><a href="filedownload.jsp?gimage=<%=article.getGimage()%>"><%=article.getGimage()%></a></span>
-		<span class="col5"><button type="button" onclick="location.href='galleryupdate.jsp?gnum=<%=article.getGnum()%>&pageNum=<%=currentPage%>'">수정</button></span>
+		<span class="col4"><a href="gfiledownload.jsp?gimage=<%=article.getGimage()%>"><%=article.getGimage()%></a></span>
+		<span class="col5"><button type="button" onclick="location.href='galleryupdate.jsp?gnum=<%=article.getGnum()%>&pageNum=<%=currentPage%>&exist_gimage=<%=article.getGimage()%>'">수정</button></span>
 		<span class="col6"><button type="button" onclick="check(<%=article.getGnum()%>)">삭제</button></span>
 	</li>
 <%
@@ -136,12 +163,13 @@ for(int i=0; i<aList.size(); i++) {
 		if(endPage < pageCount ) { %>
 			<a class="pageNumBtn"  href="gallerylist.jsp?pageNum=<%=startPage+10%>">다음</a>
 <%		}
-	}
 %>
-	</span>
-	</div>
-  </div>
-
+		</span>
+		</div>
+<%		
+	}
+%>	
+   </div>
   <ul class="buttons">
   	<li>
 		<button onclick="location.href='galleryinsert.jsp'">사진 등록</button>

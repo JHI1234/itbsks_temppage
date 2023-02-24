@@ -37,9 +37,22 @@ if(managerId==null || managerId.equals("")) {
 	FreeboardDAO freeboardDAO = FreeboardDAO.getInstance();
 	count = freeboardDAO.getArticleCount();
 	
-	if (count > 0) {
-		articleList = freeboardDAO.getArticles(startRow, pageSize);
-	}
+	String sword = request.getParameter("sword");
+	   if (sword==null || sword.equals("")) {
+	      count = freeboardDAO.getArticleCount();   
+	      if(count > 0) {		// 게시글 수가 0이 아닐 때 - 게시글이 존재할 때	
+	    	  articleList = freeboardDAO.getArticles(startRow, pageSize);
+
+	      }
+	   } else {
+	      count = freeboardDAO.getArticleCount("%"+sword+"%");   
+	      if(count > 0) {
+	    	  articleList = freeboardDAO.getArticles(startRow, pageSize, "%"+sword+"%");
+	      }
+	      else{
+	    	  out.println("<script>alert('검색된 데이터가 없습니다!'); history.go(-1);</script>");
+	      }
+	   }
 	
 	number = count - (currentPage - 1) * pageSize; //14-(1-1)*10=14 / 14-(2-1)*10=4
 %>
@@ -48,8 +61,9 @@ if(managerId==null || managerId.equals("")) {
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판 관리 | 관리자 페이지</title>
+<title>학과 소식 관리 | 관리자 페이지</title>
 <link href="../css/admin.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
   function check(num) {
 	  var ret = confirm("삭제하시겠습니까??");
@@ -59,6 +73,14 @@ if(managerId==null || managerId.equals("")) {
     	  return;
       }      
    }
+  function search_input() {
+	    if (!document.search_form.sword.value) {
+	        alert("검색어를 입력하세요");    
+	        document.search_form.sword.focus();
+	        return;
+	    }    
+	    document.search_form.submit();
+	}
 </script>
 </head>
 <body>
@@ -68,18 +90,32 @@ if(managerId==null || managerId.equals("")) {
 </header>
 <section>
   <div id="board_box">
-    <h2>자유게시판 관리</h2><hr>
+    <h2>학과 소식 관리</h2><hr>
+  <div class="search_box">
+	  <form name="search_form" method="get" action="freeboardlist.jsp">
+	    <input type="text" name="sword" placeholder="게시글 검색" />&nbsp;
+	    <a href="#" class="searchbtn"><span onclick="search_input()">검색</span></a>
+	  </form>
+  </div>
   <ul id="board_list">
 	<li>
 		<span class="col1"><b>번호</b></span>
 		<span class="col2"><b>제 목</b></span>
-		<span class="col3"><b>글쓴이</b></span>
+		<span class="col3"><b>작성자</b></span>
 		<span class="col4"><b>등록일</b></span>
-		<span class="col5"><b>조회수</b></span>
-		<span class="col6"><b>삭제</b></span>
+		<span class="col5"><b>이미지</b></span>
+		<span class="col6"><b>조회수</b></span>
+		<span class="col7"><b>삭제</b></span>
 	</li>
 
 <%
+if(count == 0){	
+%>
+
+	<div class="text-center roomy-60"><h5>게시판에 등록된 글이 없습니다.</h5></div>
+
+<%
+}else{ //게시글 개수가 0이 아닐 때
 for(int i=0; i<articleList.size(); i++) {
   		FreeboardVO article = articleList.get(i);
 %> 
@@ -88,10 +124,15 @@ for(int i=0; i<articleList.size(); i++) {
 		<span class="col2 t-left"><%=article.getSubject()%></span>
 		<span class="col3"><%=article.getWriter()%></span>
 		<span class="col4"><%=sdf.format(article.getReg_date())%></span>
-		<span class="col5"><%=article.getReadcount()%></span>
-		<span class="col6"><button type="button" onclick="check(<%=article.getNum()%>)">삭제</button></span>
+		<%if(article.getThumbnail() == null){ %>
+		<span class="col5"><a class="nopointer">이미지 없음</a></span>
+		<%}else{ %>
+		<span class="col5"><a href="ffiledownload.jsp?thumbnail=<%=article.getThumbnail()%>"><%=article.getThumbnail()%></a></span>
+		<%} %>		
+		<span class="col6"><%=article.getReadcount()%></span>
+		<span class="col7"><button type="button" onclick="check(<%=article.getNum()%>)">삭제</button></span>
 	</li>
-<% 	} %>  
+<% 	} }%>  
   </ul>	
   <br>
   <div class="page">

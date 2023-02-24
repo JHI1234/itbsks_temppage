@@ -97,7 +97,48 @@ public class GalleryDAO {
 		
 		return articleList;
 	}
-	
+	public List<GalleryVO> getArticles(int start, int end, String sword) {
+		Connection conn = null;
+		PreparedStatement pstmt = null; // query 실행
+		ResultSet rs = null;
+		List<GalleryVO> articleList = null;
+		//System.out.println(start + " - " + end);
+		try {			
+			conn = getConnection();			
+			
+			String sql = "select * from gallery where gtitle like ? order by gnum desc limit ?, ?";
+			pstmt = conn.prepareStatement(sql); //3. sql query를 실행하기 위한 객체 생성하기
+			pstmt.setString(1, sword);
+			pstmt.setInt(2, start-1);
+			pstmt.setInt(3, end);
+			rs = pstmt.executeQuery(); //4. sql query 실행
+			
+			if(rs.next()) {
+				articleList = new ArrayList<GalleryVO>();
+				do {
+					GalleryVO article = new GalleryVO();	// 같은 board 패키지 내에 있기 때문에 import를 하지 않아도 객체 생성이 가능
+					article.setGnum(rs.getInt("gnum"));
+					article.setGtitle(rs.getString("gtitle"));
+					article.setGreg_date(rs.getTimestamp("greg_date"));
+					article.setGimage(rs.getString("gimage"));
+					
+					articleList.add(article);
+				} while(rs.next());				
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("gallery 테이블에 새로운 레코드 추가를 실패했습니다.");
+		} finally {
+			//5. 자원 해제
+			if(rs != null) try {rs.close();} catch(SQLException se) { }
+			if(pstmt != null) try {pstmt.close();} catch(SQLException se) { }
+			if(conn != null) try {conn.close();} catch(SQLException se) { }
+		}
+		
+		return articleList;
+	}
+
 	public int getArticleCount() {
 		Connection conn = null;
 		PreparedStatement pstmt = null; // query 실행
@@ -117,6 +158,37 @@ public class GalleryDAO {
 		} catch(Exception e) {
 			e.printStackTrace();
 			System.out.println("gallery 테이블의 레코드 전체수 검색을 실패했습니다.");
+		} finally {
+			//5. 자원 해제
+			if(rs != null) try {rs.close();} catch(SQLException se) { }
+			if(pstmt != null) try {pstmt.close();} catch(SQLException se) { }
+			if(conn != null) try {conn.close();} catch(SQLException se) { }
+		}
+		
+		return result;
+	}
+
+	public int getArticleCount(String sword) {
+		Connection conn = null;
+		PreparedStatement pstmt = null; // query 실행
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {			
+			conn = getConnection();			
+			
+			//select count(*) from book where btitle like '%자료%';
+			String sql = "select count(*) from gallery where gtitle like ?";
+			pstmt = conn.prepareStatement(sql); //3. sql query를 실행하기 위한 객체 생성하기
+			pstmt.setString(1, sword);
+			rs = pstmt.executeQuery(); //4. sql query 실행
+			
+			if(rs.next()) {
+				result = rs.getInt(1);				
+			} 			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("gallery 테이블의 특정 subject의 레코드 전체 수 검색을 실패했습니다.");
 		} finally {
 			//5. 자원 해제
 			if(rs != null) try {rs.close();} catch(SQLException se) { }

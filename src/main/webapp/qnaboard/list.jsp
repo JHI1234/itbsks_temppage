@@ -3,19 +3,26 @@
     
 <%@ page import="qnaboard.QnaboardDAO" %>
 <%@ page import="qnaboard.QnaboardVO" %>
+<%@ page import="faqboard.FaqboardDAO" %>
+<%@ page import="faqboard.FaqboardVO" %>
 <%@ page import="reply.ReplyDAO" %>
 <%@ page import="reply.ReplyVO" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.text.SimpleDateFormat" %>
 
 <%
-int count = 0;	//총 게시글 수
+	int count = 0;	//총 게시글 수
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd"); //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 	List<QnaboardVO> alist= null;
 	QnaboardDAO bdao = QnaboardDAO.getInstance();
 	count = bdao.getArticleCount();
 	
+	List<FaqboardVO> falist= null;
+	FaqboardDAO fadao = FaqboardDAO.getInstance();
+	int facount = fadao.getArticleCount();
+	falist = fadao.getArticles();
+
 	
 	int replycount = 0;	//총 댓글 수
 	ReplyDAO rdao = ReplyDAO.getInstance();
@@ -40,22 +47,59 @@ int count = 0;	//총 게시글 수
  	
 	//-----------------------------------
 	
-	// 게시글 수가 0이 아닐 때 - 게시글이 존재할 때
-	if(count > 0){
-		alist = bdao.getArticles(startRow, pageSize);
-	}
+
+
+	String sword = request.getParameter("sword");
+	   if (sword==null || sword.equals("")) {
+	      count = bdao.getArticleCount();   
+	      if(count > 0) {		// 게시글 수가 0이 아닐 때 - 게시글이 존재할 때	
+	         alist = bdao.getArticles(startRow, pageSize);
+
+	      }
+	   } else {
+	      count = bdao.getArticleCount("%"+sword+"%");   
+	      if(count > 0) {
+	         alist = bdao.getArticles(startRow, pageSize, "%"+sword+"%");
+	      }
+	      else{
+	    	  out.println("<script>alert('검색된 데이터가 없습니다!'); history.go(-1);</script>");
+	      }
+	   }
+ 	
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>도서 소개</title>
+<title>입시 Q&A | 학과 게시판</title>
 <link href="../css/board.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />
+<script>
+function search_input() {
+    if (!document.search_form.sword.value) {
+        alert("검색어를 입력하세요");    
+        document.search_form.sword.focus();
+        return;
+    }    
+    document.search_form.submit();
+}
+</script>
 </head>
 <body>
+<header>
+  <jsp:include page="../module/top-sub.jsp" flush="false"/>
+  <jsp:include page="../module/header/board.jsp" flush="false"/>
+  <jsp:include page="../board/board.jsp" flush="false"/>
+</header>
 <section class="board-top">
   <h2 id="qna">입시 Q&A</h2>
+  <div class="search_box">
+	  <form name="search_form" method="get" action="list.jsp">
+	    <input type="text" name="sword" placeholder="게시글 검색" />&nbsp;
+	    <a href="#" class="searchbtn"><span onclick="search_input()">검색</span></a>
+	  </form>
+  </div>
   <div id="board_box">
   <ul id="board_list">
    <li class="b-title">
@@ -65,6 +109,18 @@ int count = 0;	//총 게시글 수
       <span class="col4">등록일</span>
       <span class="col5">조회</span>
    </li>
+   
+<%	for(int i=0;i<falist.size();i++){	// 반복문
+	FaqboardVO farticle = falist.get(i);	
+%>
+	<li class="b-notice">
+      <span class="col1">공지</span>
+      <span class="col2 board_title"><a href="faqcontent.jsp?num=<%=farticle.getNum()%>&pageNum=<%=currentPage%>"><%=farticle.getSubject()%></a></span>
+      <span class="col3">관리자</span>
+      <span class="col4"><%=sdf.format(farticle.getReg_date())%></span>
+      <span class="col5"><%=farticle.getReadcount()%></span>
+   </li>
+<% } %>
 
 <%
 if(count == 0){	//게시글 개수가 0이 아닐 때
@@ -160,5 +216,8 @@ if(count == 0){	//게시글 개수가 0이 아닐 때
 	  
 	  </div>
 	</section>
+<footer>
+	<jsp:include page="../module/footer.jsp" flush="false"/>
+</footer>
 </body>
 </html>

@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>학과장 인사말 | 부산경상대학교 컴퓨터정보·메타버스게임과</title>
+<title>학과장 인사말 | 학과 안내</title>
 <link rel="stylesheet" href="../css/intro.css">
 <link rel="stylesheet" href="../css/bootstrap.css">
 <link rel="icon" type="image/png" href="../images/logo.png" />  

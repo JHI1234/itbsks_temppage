@@ -44,7 +44,7 @@
    	 <ul id="board_form">
 		<li>
 			<span class="col1">&nbsp;&nbsp;작성자</span>
-			<span class="col2"><input name="writer" type="text" value="<%=id%>"></span>
+			<span class="col2"><%=id%></span>
 		</li>		
    		<li>
    			<span class="col1">&nbsp;&nbsp;제&nbsp;&nbsp;목</span>
@@ -64,9 +64,9 @@
 		</li>   		
     </ul>
     <hr>
-   	<ul class="buttons">
-		<li><button type="button" onclick="check_input()">완료</button></li>
-		<li><button type="button" onclick="location.href='qna.jsp'">목록</button></li>
+   	<ul class="buttons center">
+		<li><button type="button" onclick="check_input()">등 록</button></li>
+		<li><button type="button" onclick="location.href='list.jsp'">목 록</button></li>
 	</ul>
   </form>
   </div>

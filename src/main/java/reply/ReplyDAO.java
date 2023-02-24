@@ -362,7 +362,7 @@ public class ReplyDAO {
 		try {
 			conn = getConnection();
 			
-			String sql = "delete from reply where writer=?;";	// 쿼리 구문
+			String sql = "delete from reply where rwriter=?;";	// 쿼리 구문
 			pstmt  = conn.prepareStatement(sql);
 			pstmt.setString(1, id);
 			pstmt.executeUpdate(); // 4. sql query 실행 -  개수 반환

@@ -113,9 +113,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내가 쓴 게시글 및 댓글</title>
+<title>게시글 및 댓글 관리 | 마이페이지</title>
 <link href="../css/admin.css" rel="stylesheet" type="text/css">
-
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
 function check(num) {
 	  var ret = confirm("삭제하시겠습니까??");
@@ -147,22 +147,28 @@ function check(num) {
 <body>
 <header>
   <jsp:include page="../module/top-sub.jsp" flush="false"/>
-  <jsp:include page="../module/header/info.jsp" flush="false"/>
+  <jsp:include page="../module/header/memberboard.jsp" flush="false"/>
 </header>
 <section>
-  <div id="board_box">
-    <h2>학과 소식 > 게시글 관리</h2><hr>
-  <ul id="board_list">
+  <div id="qna_box">
+    <h3>학과 소식 > 게시글 관리</h3><hr>
+  <ul id="qna_list">
 	<li>
 		<span class="col1"><b>번호</b></span>
 		<span class="col2"><b>제 목</b></span>
-		<span class="col3"><b>글쓴이</b></span>
+		<span class="col3"><b>작성자</b></span>
 		<span class="col4"><b>등록일</b></span>
 		<span class="col5"><b>조회수</b></span>
 		<span class="col6"><b>삭제</b></span>
 	</li>
 
 <%
+if(count == 0){	
+%>
+	<div class="text-center roomy-60"><h5>게시판에 등록된 글이 없습니다.</h5></div>
+
+<%
+}else{ //게시글 개수가 0이 아닐 때
 for(int i=0; i<alist.size(); i++) {
   		FreeboardVO article = alist.get(i);
 %> 
@@ -174,7 +180,7 @@ for(int i=0; i<alist.size(); i++) {
 		<span class="col5"><%=article.getReadcount()%></span>
 		<span class="col6"><button type="button" onclick="check(<%=article.getNum()%>)">삭제</button></span>
 	</li>
-<% 	} %>  
+<% 	}} %>  
   </ul>	
   <br>
   <div class="page">
@@ -224,13 +230,13 @@ for(int i=0; i<alist.size(); i++) {
 </section>
 	
 <section>
-  <div id="board_box">
-    <h2>입시 Q&A > 게시글 관리</h2><hr>
-  <ul id="board_list">
+  <div id="qna_box">
+    <h3>입시 Q&A > 게시글 관리</h3><hr>
+  <ul id="qna_list">
 	<li>
 		<span class="col1"><b>번호</b></span>
 		<span class="col2"><b>제 목</b></span>
-		<span class="col3"><b>글쓴이</b></span>
+		<span class="col3"><b>작성자</b></span>
 		<span class="col4"><b>등록일</b></span>
 		<span class="col5"><b>조회수</b></span>
 		<span class="col6"><b>삭제</b></span>
@@ -316,9 +322,9 @@ for(int i=0; i<qlist.size(); i++) {
 </section>
 
 <section>
-  <div id="board_box">
-    <h2>입시 Q&A > 댓글 관리</h2><hr>
-  <ul id="board_list">
+  <div id="qna_box">
+    <h3>입시 Q&A > 댓글 관리</h3><hr>
+  <ul id="qna_list">
 	<li>
 		<span class="col1"><b>번호</b></span>
 		<span class="col2"><b>댓글 내용</b></span>

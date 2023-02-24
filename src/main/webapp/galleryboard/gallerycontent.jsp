@@ -18,9 +18,10 @@ int gnum = Integer.parseInt(request.getParameter("gnum"));
 <html>
 <head>
 <meta charset="UTF-8">
-<title>학과 앨범</title>
+<title>학과 앨범 | 학과 게시판</title>
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/gallery.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />
 </head>
 <body>
 <header>

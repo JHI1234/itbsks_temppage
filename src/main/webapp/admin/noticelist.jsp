@@ -35,20 +35,34 @@ if(managerId==null || managerId.equals("")) {
 	NoticeDAO nDAO = NoticeDAO.getInstance();
 	count = nDAO.getArticleCount();
 	
-	if (count > 0) {
-		aList = nDAO.getArticles(startRow, pageSize);
-	}
-	
 	number = count - (currentPage - 1) * pageSize; //14-(1-1)*10=14 / 14-(2-1)*10=4
 	
+			
+	String sword = request.getParameter("sword");
+	   if (sword==null || sword.equals("")) {
+	      count = nDAO.getArticleCount();   
+	      if(count > 0) {		// 게시글 수가 0이 아닐 때 - 게시글이 존재할 때	
+	    	  aList = nDAO.getArticles(startRow, pageSize);
+
+	      }
+	   } else {
+	      count = nDAO.getArticleCount("%"+sword+"%");   
+	      if(count > 0) {
+	    	  aList = nDAO.getArticles(startRow, pageSize, "%"+sword+"%");
+	      }
+	      else{
+	    	  out.println("<script>alert('검색된 데이터가 없습니다!'); history.go(-1);</script>");
+	      }
+	   }		
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판 관리 | 관리자 페이지</title>
+<title>공지사항 관리 | 관리자 페이지</title>
 <link href="../css/admin.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
   function check(num) {
 	  var ret = confirm("삭제하시겠습니까??");
@@ -58,6 +72,14 @@ if(managerId==null || managerId.equals("")) {
     	  return;
       }      
    }
+  function search_input() {
+	    if (!document.search_form.sword.value) {
+	        alert("검색어를 입력하세요");    
+	        document.search_form.sword.focus();
+	        return;
+	    }    
+	    document.search_form.submit();
+	}
 </script>
 </head>
 <body>
@@ -67,7 +89,13 @@ if(managerId==null || managerId.equals("")) {
 </header>
 <section>
   <div id="notice_box">
-    <h2>공지사항 관리</h2><hr>
+  <h2>공지사항 관리</h2><hr>
+  <div class="search_box">
+	  <form name="search_form" method="get" action="noticelist.jsp">
+	    <input type="text" name="sword" placeholder="게시글 검색" />&nbsp;
+	    <a href="#" class="searchbtn"><span onclick="search_input()">검색</span></a>
+	  </form>
+  </div>
   <ul id="notice_list">
 	<li>
 		<span class="col1"><b>번호</b></span>
@@ -99,7 +127,7 @@ if(count == 0){
 		<span class="col4"><a href="nfiledownload.jsp?thumbnail=<%=article.getThumbnail()%>"><%=article.getThumbnail()%></a></span>
 		<%} %>
 		<span class="col5"><%=article.getReadcount()%></span>
-		<span class="col6"><button type="button" onclick="location.href='noticeupdate.jsp?nnum=<%=article.getNum()%>&pageNum=<%=currentPage%>'">수정</button></span>
+		<span class="col6"><button type="button" onclick="location.href='noticeupdate.jsp?nnum=<%=article.getNum()%>&pageNum=<%=currentPage%>&exist_thumbnail=<%=article.getThumbnail()%>'">수정</button></span>
 		<span class="col7"><button type="button" onclick="check(<%=article.getNum()%>)">삭제</button></span>
 	</li>
 <%
@@ -140,11 +168,13 @@ if(count == 0){
 		if(endPage < pageCount ) { %>
 			<a class="pageNumBtn" href="noticelist.jsp?pageNum=<%=startPage+10%>">다음</a>
 <%		}
-	}
-%>	
+%>
 		</span>
 		</div>
-  </div>
+<%		
+	}
+%>	
+   </div>
   
    <ul class="buttons">
   	<li>

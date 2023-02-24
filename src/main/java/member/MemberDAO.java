@@ -2,6 +2,9 @@ package member;
 // java 파일 수정 시 반드시 서버 재시작!
 import java.sql.*;	// java sql package의 모든 것을 불러옴
 import javax.sql.*;
+
+import notice.NoticeVO;
+
 import javax.naming.*;
 
 
@@ -167,6 +170,38 @@ public class MemberDAO {
 		
 		return result;
 	}
+
+	public int getMemberCount(String sword) {
+		Connection conn = null;
+		PreparedStatement pstmt = null; // query 실행
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {			
+			conn = getConnection();			
+			
+			//select count(*) from book where btitle like '%자료%';
+			String sql = "select count(*) from member where id like ?";
+			pstmt = conn.prepareStatement(sql); //3. sql query를 실행하기 위한 객체 생성하기
+			pstmt.setString(1, sword);
+			rs = pstmt.executeQuery(); //4. sql query 실행
+			
+			if(rs.next()) {
+				result = rs.getInt(1);				
+			} 			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("member 테이블의 특정 id의 레코드 전체 수 검색을 실패했습니다.");
+		} finally {
+			//5. 자원 해제
+			if(rs != null) try {rs.close();} catch(SQLException se) { }
+			if(pstmt != null) try {pstmt.close();} catch(SQLException se) { }
+			if(conn != null) try {conn.close();} catch(SQLException se) { }
+		}
+		
+		return result;
+	}
+
 	
 	// 상세 글 보기
 	public List<MemberVO> getMembers(int start, int end){
@@ -206,6 +241,48 @@ public class MemberDAO {
 			if(rs != null) try{rs.close();}catch(SQLException se){}		// 예외 처리 해줘야함
 			if(pstmt != null) try{pstmt.close();}catch(SQLException se){}
 			if(conn != null) try{conn.close();}catch(SQLException se){}	// 연결 해제
+		}
+		
+		return alist;
+	}
+	public List<MemberVO> getMembers(int start, int end, String sword) {
+		Connection conn = null;
+		PreparedStatement pstmt = null; // query 실행
+		ResultSet rs = null;
+		List<MemberVO> alist = null;
+		//System.out.println(start + " - " + end);
+		try {			
+			conn = getConnection();			
+			
+			String sql = "select * from member where id like ? order by reg_date desc limit ?, ?";
+			pstmt = conn.prepareStatement(sql); //3. sql query를 실행하기 위한 객체 생성하기
+			pstmt.setString(1, sword);
+			pstmt.setInt(2, start-1);
+			pstmt.setInt(3, end);
+			rs = pstmt.executeQuery(); //4. sql query 실행
+			
+			if(rs.next()) {
+				alist = new ArrayList<MemberVO>(end);	// 배열의 개수지정 = 한 페이지에 표시할 게시물의 개수 지정
+				do {
+					MemberVO member = new MemberVO();	// 같은 Member 패키지 내에 있기 때문에 import를 하지 않아도 객체 생성이 가능
+					member.setId(rs.getString("id"));
+					member.setPasswd(rs.getString("passwd"));
+					member.setName(rs.getString("name"));
+					member.setEmail(rs.getString("email"));
+					member.setReg_date(rs.getTimestamp("reg_date"));
+					
+					alist.add(member);
+				} while(rs.next());				
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("member 테이블의 자료 검색에 실패했습니다.");
+		} finally {
+			//5. 자원 해제
+			if(rs != null) try {rs.close();} catch(SQLException se) { }
+			if(pstmt != null) try {pstmt.close();} catch(SQLException se) { }
+			if(conn != null) try {conn.close();} catch(SQLException se) { }
 		}
 		
 		return alist;
@@ -340,16 +417,15 @@ public class MemberDAO {
 		try {
 			conn = getConnection();
 			
-			String sql = "select passwd from member where id=?";	// 쿼리 구문
+			String sql = "select passwd from member where id=?;";	// 쿼리 구문
 			pstmt  = conn.prepareStatement(sql);	// 3. sql을 실행하기 위한 객체 생성하기
 			pstmt.setString(1, id);	// 함수를 호출할 때 전달받은 해당 게시물의 num 값
 			rs = pstmt.executeQuery();	// 4. sql query 실행
-			
-			System.out.println("----select 실행:" + id);
-			
+				
 			// ↓ result set의 next가 존재할 경우 값이 저장됨
 			if(rs.next()){
 				String rpasswd = rs.getString("passwd");	//	실제 db에 저장된 passwd 값
+								
 				if(rpasswd.equals(passwd)){
 					result = 1;	// 1 : 인증 성공.
 					
@@ -357,7 +433,6 @@ public class MemberDAO {
 					pstmt  = conn.prepareStatement(sql);
 					pstmt.setString(1, id);
 					pstmt.executeUpdate(); // 4. sql query 실행 -  개수 반환
-					
 					
 				} else{	//패스워드가 틀린경우
 					result = 0;	// 0 : 패스워드 틀림.

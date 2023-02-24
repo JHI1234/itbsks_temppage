@@ -14,6 +14,7 @@
 <title>도서 소개</title>
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/admin.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
   function check_input() {
       if (!document.gallery_form.gtitle.value)

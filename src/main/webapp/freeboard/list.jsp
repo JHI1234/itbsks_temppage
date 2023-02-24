@@ -34,22 +34,55 @@ int count = 0;	//총 게시글 수
  	
 	//-----------------------------------
 	
-	// 게시글 수가 0이 아닐 때 - 게시글이 존재할 때
-	if(count > 0){
-		alist = bdao.getArticles(startRow, pageSize);
-	}
+	String sword = request.getParameter("sword");
+	   if (sword==null || sword.equals("")) {
+	      count = bdao.getArticleCount();   
+	      if(count > 0) {		// 게시글 수가 0이 아닐 때 - 게시글이 존재할 때	
+	         alist = bdao.getArticles(startRow, pageSize);
+	      }
+	   } else {
+	      count = bdao.getArticleCount("%"+sword+"%");   
+	      if(count > 0) {
+	         alist = bdao.getArticles(startRow, pageSize, "%"+sword+"%");
+	      }
+	      else{
+	    	  out.println("<script>alert('검색된 데이터가 없습니다!'); history.go(-1);</script>");
+	      }
+	   }
 %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<title>학과 소식</title>
+<title>학과 소식 | 학과 게시판</title>
 <link href="../css/board.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/pnㄴg" href="../images/logo.png" />  
+<script>
+function search_input() {
+    if (!document.search_form.sword.value) {
+        alert("검색어를 입력하세요");    
+        document.search_form.sword.focus();
+        return;
+    }    
+    document.search_form.submit();
+}
+</script>
 </head>
 <body>
+<header>
+  <jsp:include page="../module/top-sub.jsp" flush="false"/>
+  <jsp:include page="../module/header/board.jsp" flush="false"/>
+  <jsp:include page="../board/board.jsp" flush="false"/>
+</header>
 <section class="board-top">
   <h2>학과 소식</h2>
+  <div class="search_box">
+	  <form name="search_form" method="get" action="list.jsp">
+	    <input type="text" name="sword" placeholder="게시글 검색" />&nbsp;
+	    <a href="#" class="searchbtn"><span onclick="search_input()">검색</span></a>
+	  </form>
+  </div>
   <div id="board_box">
   <ul id="board_list">
    <li class="b-title">
@@ -109,23 +142,23 @@ if(count == 0){	//게시글 개수가 0이 아닐 때
 <%
 		if(startPage > 10){
 %>
-				<a class="pageNumBtn"  href="freeboard.jsp?pageNum=<%= startPage-pageBlock %>">이전</a>
+				<a class="pageNumBtn"  href="list.jsp?pageNum=<%= startPage-pageBlock %>">이전</a>
 <%	
 		}
 		for(int i = startPage; i<=endPage; i++){
 			if(currentPage == i){
 %>
-				<a class="pageNumBtn current" href="freeboard.jsp?pageNum=<%=i%>"><%= i %></a>
+				<a class="pageNumBtn current" href="list.jsp?pageNum=<%=i%>"><%= i %></a>
 <%
 			}else{
 %>
-				<a class="pageNumBtn" href="freeboard.jsp?pageNum=<%=i%>"><%= i %></a>
+				<a class="pageNumBtn" href="list.jsp?pageNum=<%=i%>"><%= i %></a>
 <%
 			}
 		}
 		if(endPage < pageCount){
 %>
-				<a class="pageNumBtn" href="freeboard.jsp?pageNum=<%= startPage+pageBlock %>">다음</a>
+				<a class="pageNumBtn" href="list.jsp?pageNum=<%= startPage+pageBlock %>">다음</a>
 <%	
 		}
 	}
@@ -146,5 +179,8 @@ if(count == 0){	//게시글 개수가 0이 아닐 때
 	  </ul>
 	  </div>
 	</section>
+<Footer>
+	<jsp:include page="../module/footer.jsp" flush="false"/>
+</Footer>	
 </body>
 </html>

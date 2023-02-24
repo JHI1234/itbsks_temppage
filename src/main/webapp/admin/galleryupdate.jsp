@@ -9,6 +9,7 @@
 
 	int gnum = Integer.parseInt(request.getParameter("gnum"));
 	int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+	String exist_gimage = request.getParameter("exist_gimage");
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	//input의 date 타입은 'yyyy-MM-dd' 유형만 value 지정이 가능함.
 	
@@ -27,6 +28,7 @@
 <title>도서 소개</title>
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/admin.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
   function check_input() {
       if (!document.gallery_form.gtitle.value)
@@ -63,6 +65,8 @@
   <form  name="gallery_form" method="post" enctype="multipart/form-data" action="galleryupdatePro.jsp">
   	<input type="hidden" name="gnum" value="<%=gnum%>">
 	<input type="hidden" name="pageNum" value="<%=pageNum %>">
+	<input type="hidden" name="exist_gimage" value="<%=exist_gimage %>">
+	
    	 <ul id="gallery_form">		
    		<li>
    			<span class="col1">&nbsp;&nbsp;제&nbsp;&nbsp;&nbsp;목</span>

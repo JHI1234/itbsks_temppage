@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link href="../css/login.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
 function check_input()
 {
@@ -39,7 +40,7 @@ function check_input()
     	  	 <div class="clear"></div>
      	     <div class="form"><input type="password" id="passwd" name="passwd" placeholder="비밀번호" ></div>
              <div id="login_btn">
-              	<a href="#"><span onclick="check_input()">Log in</span></a>
+              	<a href="#" onclick="check_input()"><span>로그인</span></a>
              </div>		    	
       	  </form>
 	</div> <!-- login_box -->

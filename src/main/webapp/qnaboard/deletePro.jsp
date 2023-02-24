@@ -20,6 +20,6 @@ int num = Integer.parseInt(request.getParameter("num"));
 		qdao.deleteqnaboard(num);			
 		
 		out.println("<script>alert('삭제되었습니다.');</script>");
-		out.println("<script>document.location.href='qna.jsp?pageNum=" + pn + "';</script>");
+		out.println("<script>document.location.href='list.jsp?pageNum=" + pn + "';</script>");
 	}
 %>	

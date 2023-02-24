@@ -9,6 +9,7 @@
 
 	int nnum = Integer.parseInt(request.getParameter("nnum"));
 	int pageNum = Integer.parseInt(request.getParameter("pageNum"));
+	String exist_thumbnail = request.getParameter("exist_thumbnail");
 	
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");	//input의 date 타입은 'yyyy-MM-dd' 유형만 value 지정이 가능함.
 	
@@ -24,9 +25,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>도서 소개</title>
+<title>사진 수정 | 학과 앨범 관리</title>
 <link href="../css/common.css" rel="stylesheet" type="text/css">
 <link href="../css/admin.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="../images/logo.png" />  
 <script>
 	function check_input() {
 	    if (!document.notice_form.subject.value)
@@ -60,9 +62,10 @@
 <section>
   <div id="noticeform_box">
     <h2>학과 앨범 관리 > 사진 수정</h2><hr>
-  <form  name="notice_form" method="post" enctype="multipart/form-data" action="galleryupdatePro.jsp">
+  <form  name="notice_form" method="post" enctype="multipart/form-data" action="noticeupdatePro.jsp">
   	<input type="hidden" name="nnum" value="<%=nnum%>">
 	<input type="hidden" name="pageNum" value="<%=pageNum %>">
+	<input type="hidden" name="exist_thumbnail" value="<%=exist_thumbnail %>">
    	 <ul id="notice_form">		
    		<li>
    			<span class="col1">&nbsp;&nbsp;제&nbsp;&nbsp;&nbsp;&nbsp;목</span>
@@ -87,7 +90,7 @@
 		     <span class="col2"><input type="file" name="thumbnail"></span>
 		</li>
     </ul>
-   	<ul class="buttons">
+   	<ul class="buttons m0auto">
 		<li><button type="button" onclick="check_input()">수 정</button></li>
 		<li><button type="button" onclick="location.href='noticelist.jsp?pageNum=<%=pageNum%>'">목 록</button></li>
 	</ul>

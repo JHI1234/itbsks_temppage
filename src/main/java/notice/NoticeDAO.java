@@ -2,6 +2,9 @@ package notice;
 // java 파일 수정 시 반드시 서버 재시작!
 import java.sql.*;	// java sql package의 모든 것을 불러옴
 import javax.sql.*;
+
+import qnaboard.QnaboardVO;
+
 import javax.naming.*;
 
 
@@ -133,6 +136,39 @@ public class NoticeDAO {
 		return result;
 	}
 	
+	//검색 기능 추가
+	public int getArticleCount(String sword) {
+		Connection conn = null;
+		PreparedStatement pstmt = null; // query 실행
+		ResultSet rs = null;
+		int result = 0;
+		
+		try {			
+			conn = getConnection();			
+			
+			//select count(*) from book where btitle like '%자료%';
+			String sql = "select count(*) from noticeboard where subject like ?";
+			pstmt = conn.prepareStatement(sql); //3. sql query를 실행하기 위한 객체 생성하기
+			pstmt.setString(1, sword);
+			rs = pstmt.executeQuery(); //4. sql query 실행
+			
+			if(rs.next()) {
+				result = rs.getInt(1);				
+			} 			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("noticeboard 테이블의 특정 subject의 레코드 전체 수 검색을 실패했습니다.");
+		} finally {
+			//5. 자원 해제
+			if(rs != null) try {rs.close();} catch(SQLException se) { }
+			if(pstmt != null) try {pstmt.close();} catch(SQLException se) { }
+			if(conn != null) try {conn.close();} catch(SQLException se) { }
+		}
+		
+		return result;
+	}
+
+	
 	// 상세 글 보기
 	public List<NoticeVO> getArticles(int start, int end){
 		Connection conn = null;			// 데이터베이스 연결할 객체
@@ -178,6 +214,51 @@ public class NoticeDAO {
 		return alist;
 	}
 	
+	public List<NoticeVO> getArticles(int start, int end, String sword) {
+		Connection conn = null;
+		PreparedStatement pstmt = null; // query 실행
+		ResultSet rs = null;
+		List<NoticeVO> articleList = null;
+		//System.out.println(start + " - " + end);
+		try {			
+			conn = getConnection();			
+			
+			String sql = "select * from noticeboard where subject like ? order by num desc limit ?, ?";
+			pstmt = conn.prepareStatement(sql); //3. sql query를 실행하기 위한 객체 생성하기
+			pstmt.setString(1, sword);
+			pstmt.setInt(2, start-1);
+			pstmt.setInt(3, end);
+			rs = pstmt.executeQuery(); //4. sql query 실행
+			
+			if(rs.next()) {
+				articleList = new ArrayList<NoticeVO>();
+				do {
+					NoticeVO article = new NoticeVO();	// 같은 board 패키지 내에 있기 때문에 import를 하지 않아도 객체 생성이 가능
+					article.setNum(rs.getInt("num"));
+					article.setWriter(rs.getString("writer"));
+					article.setSubject(rs.getString("subject"));
+					article.setReg_date(rs.getTimestamp("reg_date"));
+					article.setReadcount(rs.getInt("readcount"));
+					article.setContent(rs.getString("content"));
+					article.setThumbnail(rs.getString("thumbnail"));
+					
+					articleList.add(article);
+				} while(rs.next());				
+			}
+			
+		} catch(Exception e) {
+			e.printStackTrace();
+			System.out.println("book 테이블에 새로운 레코드 추가를 실패했습니다.");
+		} finally {
+			//5. 자원 해제
+			if(rs != null) try {rs.close();} catch(SQLException se) { }
+			if(pstmt != null) try {pstmt.close();} catch(SQLException se) { }
+			if(conn != null) try {conn.close();} catch(SQLException se) { }
+		}
+		
+		return articleList;
+	}
+
 	// 수정을 위한 상세글
 	public NoticeVO getArticleUpdate(int num){
 		Connection conn = null;			// 데이터베이스 연결할 객체
@@ -269,12 +350,13 @@ public class NoticeDAO {
 		try {
 			conn = getConnection();
 	
-			String sql = "update noticeboard set subject=?, content=?, thumbnail=? where num=?;";	// 쿼리 구문
+			String sql = "update noticeboard set subject=?, content=?, reg_date=?, thumbnail=? where num=?;";	// 쿼리 구문
 			pstmt  = conn.prepareStatement(sql);
 			pstmt.setString(1, article.getSubject());
 			pstmt.setString(2, article.getContent());
-			pstmt.setString(3, article.getThumbnail());
-			pstmt.setInt(4, article.getNum());
+			pstmt.setTimestamp(3, article.getReg_date());
+			pstmt.setString(4, article.getThumbnail());
+			pstmt.setInt(5, article.getNum());
 			pstmt.executeUpdate(); // 4. sql query 실행 -  개수 반환
 
 		}catch(Exception e){

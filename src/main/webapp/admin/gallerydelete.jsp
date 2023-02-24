@@ -22,11 +22,12 @@
 		GalleryVO gallery = gDAO.getArticle(gnum);		
 		gDAO.deleteGallery(gnum);				
 		
-		
+	
 		//저장되어 있는 이미지 파일 삭제
-		//new File("C://WS-JSP/BookSite/src/main/webapp/img/bookimg" + gallery.getGimage()).delete();
-		new File("C:/WS-JSPMySQL/departJSP/src/main/webapp/images/galleryimg" + gallery.getGimage()).delete(); 
+		//new File("C:/WS-JSPMySQL/departJSP/src/main/webapp/images/galleryimg" + gallery.getGimage()).delete();
+		new File("C:/WS-JSP/departJSP/src/main/webapp/images/galleryimg/" + gallery.getGimage()).delete(); 
 
-		response.sendRedirect("gallerylist.jsp?pageNum=" + pageNum);
+		out.println("<script>alert('삭제되었습니다.');</script>");
+		out.println("<script>document.location.href='gallerylist.jsp?pageNum=" + pageNum + "';</script>");
 	}
 %>

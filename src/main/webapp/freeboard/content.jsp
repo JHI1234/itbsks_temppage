@@ -19,7 +19,7 @@
 
 <html>
 <head>
-<title>학과 소식</title>
+<title>학과 소식 | 학과 게시판</title>
 <link href="../css/board.css" rel="stylesheet" type="text/css">
 <script>
   function check_input() {
@@ -56,22 +56,27 @@
 			<span class="col2"> <%=article.getWriter()%> | <%=sdf.format(article.getReg_date())%> </span>
 		</li>
 		<li id="content-space">
-			<%=article.getContent().replace("\r\n", "<br><br>")%>
+		<% if(article.getThumbnail() == null || article.getThumbnail() == "nothing.jpg"){ %>
+			<%=article.getContent().replace("\r\n", "<br>")%>
+		<%}else{ %>
+			<img id="content-img" src="../images/freeboardimg/<%=article.getThumbnail()%>" /><br>		
+			<%=article.getContent().replace("\r\n", "<br>")%>
+		<%} %>
 		</li>		
     </ul>
     
-    <ul class="buttons">
+    <ul class="buttons center">
 <%
 	String id = (String) session.getAttribute("id");
 	if (!(id==null) && id.equals(article.getWriter())) {
 %>			
-		<li><button onclick="location.href='updateForm.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>'">수정</button></li>
+		<li><button onclick="location.href='updateForm.jsp?num=<%=article.getNum()%>&pageNum=<%=pageNum%>&exist_thumbnail=<%=article.getThumbnail()%>'">수정</button></li>
 		<li><button onclick="del(<%=article.getNum()%>,<%=pageNum%>)">삭제</button></li>
-		<li><button onclick="location.href='freeboard.jsp?pageNum=<%=pageNum%>'">목록</button></li>
+		<li><button onclick="location.href='list.jsp?pageNum=<%=pageNum%>'">목록</button></li>
 <%
 	} else {
 %>
-		<li><button onclick="location.href='freeboard.jsp?pageNum=<%=pageNum%>'">목록</button></li>
+		<li><button onclick="location.href='list.jsp?pageNum=<%=pageNum%>'">목록</button></li>
 <%
 	}
 %>			

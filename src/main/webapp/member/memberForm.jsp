@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>회원가입</title>
+<title>회원가입 | 부산경상대학교 컴퓨터정보·메타버스게임과 학과</title>
 <link href="../css/member.css" rel="stylesheet" type="text/css">
 <script>
    function check_input()
@@ -15,15 +15,15 @@
           return;
       }
 
-      if (!document.member_form.pass.value) {
+      if (!document.member_form.passwd.value) {
           alert("비밀번호를 입력하세요!");    
-          document.member_form.pass.focus();
+          document.member_form.passwd.focus();
           return;
       }
 
-      if (!document.member_form.pass_confirm.value) {
+      if (!document.member_form.passwd_confirm.value) {
           alert("비밀번호확인을 입력하세요!");    
-          document.member_form.pass_confirm.focus();
+          document.member_form.passwd_confirm.focus();
           return;
       }
 
@@ -33,11 +33,11 @@
           return;
       }
 
-      if (document.member_form.pass.value != 
-            document.member_form.pass_confirm.value) {
+      if (document.member_form.passwd.value != 
+            document.member_form.passwd_confirm.value) {
           alert("비밀번호가 일치하지 않습니다.\n다시 입력해 주세요!");
-          document.member_form.pass.focus();
-          document.member_form.pass.select();
+          document.member_form.passwd.focus();
+          document.member_form.passwd.select();
           return;
       }
 
@@ -46,9 +46,10 @@
 
    function reset_form() {
       document.member_form.id.value = "";  
-      document.member_form.pass.value = "";
-      document.member_form.pass_confirm.value = "";
+      document.member_form.passwd.value = "";
+      document.member_form.passwd_confirm.value = "";
       document.member_form.name.value = "";
+      document.member_form.email.value = "";
       document.member_form.id.focus();
       return;
    }
@@ -69,7 +70,7 @@
 <section>
 <div id="main_content">
    <div id="join_box">
-      <form  name="member_form" method="post" action="memberPro.jsp">
+      <form name="member_form" method="post" action="memberPro.jsp">
   		  <table>
 	  		  <tr class="form id">
 			     <td class="col1">아이디</td>
